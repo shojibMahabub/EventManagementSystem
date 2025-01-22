@@ -1,71 +1,71 @@
 # EventManagementSystem
 
 ### **Epic 1: User Authentication**
-- **Task:** Set up database schema for users (fields: username, email, password, etc.).
-- **Task:** Implement user registration with secure password hashing.
-- **Task:** Implement user login functionality.
-- **Task:** Add server-side validation for registration and login forms.
-- **Task:** Build responsive UI for login and registration pages.
-- **Task:** Create session management for authenticated users.
+- **Task_001:** Set up database schema for users (fields: username, email, password, etc.).
+- **Task_002:** Implement user registration with secure password hashing.
+- **Task_003:** Implement user login functionality.
+- **Task_004:** Add server-side validation for registration and login forms.
+- **Task_005:** Build responsive UI for login and registration pages.
+- **Task_006:** Create session management for authenticated users.
 
 ---
 
 ### **Epic 2: Event Management**
-- **Task:** Design database schema for events (fields: name, description, date, capacity, etc.).
-- **Task:** Create functionality for adding new events.
-- **Task:** Implement edit functionality for events.
-- **Task:** Create delete functionality for events.
-- **Task:** Add server-side validation for event creation and updates.
-- **Task:** Develop a responsive UI for creating and managing events.
+- **Task_007:** Design database schema for events (fields: name, description, date, capacity, etc.).
+- **Task_008:** Create functionality for adding new events.
+- **Task_009:** Implement edit functionality for events.
+- **Task_010:** Create delete functionality for events.
+- **Task_011:** Add server-side validation for event creation and updates.
+- **Task_012:** Develop a responsive UI for creating and managing events.
 
 ---
 
 ### **Epic 3: Attendee Registration**
-- **Task:** Design database schema for attendees (fields: name, email, event_id, etc.).
-- **Task:** Implement attendee registration form linked to specific events.
-- **Task:** Add server-side validation for registration forms.
-- **Task:** Prevent registrations beyond event capacity.
-- **Task:** Develop a responsive UI for attendee registration.
+- **Task_013:** Design database schema for attendees (fields: name, email, event_id, etc.).
+- **Task_014:** Implement attendee registration form linked to specific events.
+- **Task_015:** Add server-side validation for registration forms.
+- **Task_016:** Prevent registrations beyond event capacity.
+- **Task_017:** Develop a responsive UI for attendee registration.
 
 ---
 
 ### **Epic 4: Event Dashboard**
-- **Task:** Build a paginated list view of events.
-- **Task:** Add sorting functionality for event fields (name, date, etc.).
-- **Task:** Implement filtering options for events (e.g., by date, capacity).
-- **Task:** Develop a responsive UI for the event dashboard.
+- **Task_018:** Build a paginated list view of events.
+- **Task_019:** Add sorting functionality for event fields (name, date, etc.).
+- **Task_020:** Implement filtering options for events (e.g., by date, capacity).
+- **Task_021:** Develop a responsive UI for the event dashboard.
 
 ---
 
 ### **Epic 5: Event Reports**
-- **Task:** Create functionality to export attendee lists to CSV format.
-- **Task:** Ensure the download functionality is available only to admins.
-- **Task:** Design a simple UI for admins to select events for report generation.
+- **Task_022:** Create functionality to export attendee lists to CSV format.
+- **Task_023:** Ensure the download functionality is available only to admins.
+- **Task_024:** Design a simple UI for admins to select events for report generation.
 
 ---
 
 ### **Epic 6: Security Enhancements**
-- **Task:** Ensure all user inputs are validated client-side and server-side.
-- **Task:** Use prepared statements for database queries to prevent SQL injection.
-- **Task:** Review and implement secure session handling practices.
+- **Task_025:** Ensure all user inputs are validated client-side and server-side.
+- **Task_026:** Use prepared statements for database queries to prevent SQL injection.
+- **Task_027:** Review and implement secure session handling practices.
 
 ---
 
 ### **Epic 7: Hosting and Documentation**
-- **Task:** Deploy the project on a hosting platform (Heroku, Vercel, etc.).
-- **Task:** Prepare a README file with:
+- **Task_028:** Deploy the project on a hosting platform (Heroku, Vercel, etc.).
+- **Task_029:** Prepare a README file with:
   - Project overview
   - Features
   - Installation instructions
   - Login credentials for testing
   - Live demo link
-- **Task:** Upload the complete project to GitHub.
+- **Task_030:** Upload the complete project to GitHub.
 
 ---
 
 ### **Epic 8: Bonus Features**
-- **Task:** Implement search functionality for events and attendees.
-- **Task:** Use AJAX for a smooth attendee registration experience.
-- **Task:** Develop a JSON API endpoint to fetch event details.
+- **Task_031:** Implement search functionality for events and attendees.
+- **Task_032:** Use AJAX for a smooth attendee registration experience.
+- **Task_033:** Develop a JSON API endpoint to fetch event details.
 
 ---
