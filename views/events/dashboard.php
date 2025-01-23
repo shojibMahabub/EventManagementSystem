@@ -1,4 +1,9 @@
-<?php include __DIR__ . '/../templates/header.php'; ?>
+<?php 
+    include __DIR__ . '/../templates/header.php'; 
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+?>
 
 <div class="container mt-5">
     <h2 class="text-center">Event Dashboard</h2>
@@ -20,7 +25,7 @@
                     <td><?= $event->capacity; ?></td>
                     <td>
                         <a href="/events/details?uuid=<?= $event->uuid; ?>" class="btn btn-primary btn-sm">View</a>
-                        <?php if (isset($_SESSION['user_id'])): ?>
+                        <?php if (isset($_SESSION['user'])): ?>
                             <a href="/events/details?uuid=<?= $event->uuid; ?>" class="btn btn-warning btn-sm">Edit</a>
                             <a href="/events/details?uuid=<?= $event->uuid; ?>" class="btn btn-danger btn-sm">Delete</a>                        
                         <?php endif; ?>

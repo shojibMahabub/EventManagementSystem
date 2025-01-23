@@ -21,7 +21,7 @@
                         <a class="nav-link active" aria-current="page" href="/events">Event</a>
                     </li>
                     <li class="nav-item">
-                    <?php if (isset($_SESSION['user_id'])): ?>
+                    <?php if (isset($_SESSION['user'])): ?>
                         <li class="nav-item">
                             <a class="nav-link active" href="/logout">Logout</a>
                         </li>
