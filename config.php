@@ -46,9 +46,9 @@ class Config
 
     public function getDatabaseConnection(): mysqli
     {
-        $host = $this->get('DB_HOST', 'localhost');
-        $dbname = $this->get('DB_NAME', 'event_management');
-        $username = $this->get('DB_USER', 'root');
+        $host = $this->get('DB_HOST', '');
+        $dbname = $this->get('DB_NAME', '');
+        $username = $this->get('DB_USER', '');
         $password = $this->get('DB_PASS', '');
 
         $db = new mysqli($host, $username, $password, $dbname);
@@ -63,7 +63,7 @@ class Config
 
 // Autoload Classes
 spl_autoload_register(function ($class) {
-    $path = __DIR__ . '/src/' . str_replace('\\', '/', $class) . '.php';
+    $path = __DIR__ . '/' . str_replace('\\', '/', $class) . '.php';
     if (file_exists($path)) {
         require_once $path;
     }
