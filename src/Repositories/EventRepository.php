@@ -19,17 +19,16 @@ class EventRepository
         $events = [];
         try {
             $result = $this->db->query("SELECT * FROM events");
+                    while ($row = $result->fetch_assoc()) {
+            $events[] = new Event($row['uuid'], $row['name'], $row['description'], $row['capacity']);
+        }
+
+        return $events;
         }
         
         catch (Exception $e) {
             echo $e->getMessage();
         }
-
-        while ($row = $result->fetch_assoc()) {
-            $events[] = new Event($row['id'], $row['name'], $row['description'], $row['capacity']);
-        }
-
-        return $events;
     }
 
     public function create(array $data): bool
@@ -47,18 +46,23 @@ class EventRepository
         
     }
 
-    public function findById(int $id): ?Event
+    public function findByUuid(string $uuid): ?Event
     {
-        $stmt = $this->db->prepare("SELECT * FROM events WHERE id = ?");
-        $stmt->bind_param("i", $id);
-        $stmt->execute();
-        $result = $stmt->get_result();
-
-        if ($row = $result->fetch_assoc()) {
-            return new Event($row['id'], $row['name'], $row['description'], $row['capacity']);
+        try {
+            $stmt = $this->db->prepare("SELECT * FROM events WHERE uuid = ?");
+            $stmt->bind_param("i", $uuid);
+            $stmt->execute();
+            $result = $stmt->get_result();
+    
+            if ($row = $result->fetch_assoc()) {
+                return new Event($row['id'], $row['name'], $row['description'], $row['capacity']);
+            }
+    
+            return null;
         }
-
-        return null;
+        catch (Exception $e) {
+            echo $e->getMessage();
+        }
     }
 }
 ?>

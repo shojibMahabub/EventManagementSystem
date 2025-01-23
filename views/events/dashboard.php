@@ -6,7 +6,6 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                <th>ID</th>
                 <th>Name</th>
                 <th>Description</th>
                 <th>Capacity</th>
@@ -16,12 +15,11 @@
         <tbody>
             <?php foreach ($events as $event): ?>
                 <tr>
-                    <td><?= $event->id; ?></td>
                     <td><?= htmlspecialchars($event->name); ?></td>
                     <td><?= htmlspecialchars($event->description); ?></td>
                     <td><?= $event->capacity; ?></td>
                     <td>
-                        <a href="/events/details?id=<?= $event->id; ?>" class="btn btn-primary btn-sm">View</a>
+                        <a href="/events/details?uuid=<?= $event->uuid; ?>" class="btn btn-primary btn-sm">View</a>
                     </td>
                 </tr>
             <?php endforeach; ?>

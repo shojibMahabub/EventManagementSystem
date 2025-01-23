@@ -48,8 +48,8 @@ class EventController
 
     public function details()
     {
-        $eventId = $_GET['id'] ?? 0;
-        $event = $this->eventService->getEventById($eventId);
+        $eventUuid = $_GET['uuid'] ?? 0;
+        $event = $this->eventService->getEventByUuid($eventUuid);
         include __DIR__ . '/../../views/events/event_details.php';
     }
 

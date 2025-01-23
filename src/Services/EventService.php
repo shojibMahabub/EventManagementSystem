@@ -36,9 +36,9 @@ class EventService
         return ['success' => false, 'message' => 'Failed to create the event.'];
     }
 
-    public function getEventById(int $id): ?array
+    public function getEventByUuid(string $uuid)
     {
-        return $this->eventRepository->findById($id);
+        return $this->eventRepository->findByUuid($uuid);
     }
 }
 ?>

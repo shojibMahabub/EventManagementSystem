@@ -3,14 +3,14 @@ namespace src\Models;
 
 class Event
 {
-    public $id;
+    public $uuid;
     public $name;
     public $description;
     public $capacity;
 
-    public function __construct($id, $name, $description, $capacity)
+    public function __construct($uuid, $name, $description, $capacity)
     {
-        $this->id = $id;
+        $this->uuid = $uuid;
         $this->name = $name;
         $this->description = $description;
         $this->capacity = $capacity;
