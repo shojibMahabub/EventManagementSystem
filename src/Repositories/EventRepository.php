@@ -1,6 +1,7 @@
 <?php
 namespace src\Repositories;
 
+use Exception;
 use src\Models\Event;
 
 class EventRepository
@@ -15,7 +16,13 @@ class EventRepository
     public function getAll(): array
     {
         $events = [];
-        $result = $this->db->query("SELECT * FROM events");
+        try {
+            $result = $this->db->query("SELECT * FROM events");
+        }
+        
+        catch (Exception $e) {
+            echo $e->getMessage();
+        }
 
         while ($row = $result->fetch_assoc()) {
             $events[] = new Event($row['id'], $row['name'], $row['description'], $row['capacity']);
@@ -26,9 +33,16 @@ class EventRepository
 
     public function create(array $data): bool
     {
-        $stmt = $this->db->prepare("INSERT INTO events (name, description, capacity) VALUES (?, ?, ?)");
-        $stmt->bind_param("ssi", $data['name'], $data['description'], $data['capacity']);
-        return $stmt->execute();
+        try{
+            $stmt = $this->db->prepare("INSERT INTO events (name, description, capacity) VALUES (?, ?, ?)");
+            $stmt->bind_param("ssi", $data['name'], $data['description'], $data['capacity']);
+            
+            return $stmt->execute();            
+        }
+        catch (Exception $e) {
+            echo $e->getMessage();
+        }
+        
     }
 
     public function findById(int $id): ?Event
