@@ -14,7 +14,7 @@ class EventRepository
         $this->db = $db;
     }
 
-    public function getAll(): array
+    public function getAll()
     {
         $events = [];
         try {
@@ -31,7 +31,7 @@ class EventRepository
         }
     }
 
-    public function create(array $data): bool
+    public function create(array $data)
     {
         try{
             $uuid = new Uuid();
@@ -46,7 +46,7 @@ class EventRepository
         
     }
 
-    public function findByUuid(string $uuid): ?Event
+    public function findByUuid(string $uuid)
     {
         try {
             $stmt = $this->db->prepare("SELECT * FROM events WHERE uuid = ?");
@@ -55,7 +55,7 @@ class EventRepository
             $result = $stmt->get_result();
     
             if ($row = $result->fetch_assoc()) {
-                return new Event($row['id'], $row['name'], $row['description'], $row['capacity']);
+                return new Event($row['uuid'], $row['name'], $row['description'], $row['capacity']);
             }
     
             return null;

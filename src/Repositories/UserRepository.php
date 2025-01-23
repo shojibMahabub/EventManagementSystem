@@ -13,7 +13,7 @@ class UserRepository
         $this->db = $db;
     }
 
-    public function findByEmail(string $email): ?User
+    public function findByEmail(string $email)
     {
         $stmt = $this->db->prepare("SELECT * FROM users WHERE email = ?");
         $stmt->bind_param("s", $email);
@@ -27,7 +27,7 @@ class UserRepository
         return null;
     }
 
-    public function createUser(array $data): bool
+    public function createUser(array $data)
     {
         try {
             $stmt = $this->db->prepare("INSERT INTO users (name, email, password, uuid) VALUES (?, ?, ?, ?)");

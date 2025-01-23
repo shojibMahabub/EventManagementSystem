@@ -25,8 +25,7 @@ class AuthService
             return ['success' => false, 'message' => 'Invalid credentials.'];
         }
 
-        // Assuming session start has been called earlier
-        $_SESSION['user_id'] = $user->id;
+        $_SESSION['user'] = $user->uuid;
         return ['success' => true, 'message' => 'Login successful.'];
     }
 
