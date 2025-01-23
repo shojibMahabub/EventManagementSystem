@@ -20,6 +20,10 @@
                     <td><?= $event->capacity; ?></td>
                     <td>
                         <a href="/events/details?uuid=<?= $event->uuid; ?>" class="btn btn-primary btn-sm">View</a>
+                        <?php if (isset($_SESSION['user_id'])): ?>
+                            <a href="/events/details?uuid=<?= $event->uuid; ?>" class="btn btn-warning btn-sm">Edit</a>
+                            <a href="/events/details?uuid=<?= $event->uuid; ?>" class="btn btn-danger btn-sm">Delete</a>                        
+                        <?php endif; ?>
                     </td>
                 </tr>
             <?php endforeach; ?>
