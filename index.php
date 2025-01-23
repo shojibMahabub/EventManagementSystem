@@ -11,7 +11,7 @@ $apiRoutes = require_once 'routes/api.php';
 $routes = array_merge($webRoutes, $apiRoutes);
 // Get the requested URI
 $requestUri = $_SERVER['REQUEST_URI'];
-$requestUri = strtok($requestUri, '?'); // Remove query string
+$requestUri = strtok($requestUri, '?');
 
 // Match the request URI to a route
 if (array_key_exists($requestUri, $routes)) {
