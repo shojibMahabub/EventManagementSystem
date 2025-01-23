@@ -14,8 +14,7 @@ class EventController
 
     public function index()
     {
-        $events = $this->eventService->getAllEvents();
-        include __DIR__ . '/../../views/events/dashboard.php';
+        include __DIR__ . '/../../views/events/home.php';
     }
 
     public function list()
