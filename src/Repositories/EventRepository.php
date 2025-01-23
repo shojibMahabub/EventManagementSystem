@@ -3,6 +3,7 @@ namespace src\Repositories;
 
 use Exception;
 use src\Models\Event;
+use src\Utils\Uuid;
 
 class EventRepository
 {
@@ -34,8 +35,9 @@ class EventRepository
     public function create(array $data): bool
     {
         try{
-            $stmt = $this->db->prepare("INSERT INTO events (name, description, capacity) VALUES (?, ?, ?)");
-            $stmt->bind_param("ssi", $data['name'], $data['description'], $data['capacity']);
+            $uuid = new Uuid();
+            $stmt = $this->db->prepare("INSERT INTO events (name, description, capacity, uuid) VALUES (?, ?, ?, ?)");
+            $stmt->bind_param("ssis", $data['name'], $data['description'], $data['capacity'], $uuid->generate());
             
             return $stmt->execute();            
         }
