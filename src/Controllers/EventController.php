@@ -52,6 +52,44 @@ class EventController
         include __DIR__ . '/../../views/events/event_details.php';
     }
 
+
+    public function edit()
+    {
+        $eventUuid = $_GET['uuid'] ?? 0;
+        $event = $this->eventService->getEventByUuid($eventUuid);
+        include __DIR__ . '/../../views/events/add_event.php';
+    }
+    public function update()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $data = [
+                'name' => $_POST['name'] ?? '',
+                'description' => $_POST['description'] ?? '',
+                'capacity' => $_POST['capacity'] ?? ''
+            ];
+            die(json_encode($data));
+
+            $result = $this->eventService->updateEvent($data);
+
+            if ($result['success']) {
+                header('Location: /events');
+                exit;
+            } else {
+                echo $result['message'];
+            }
+        } else {
+            echo "Method not supported";
+        }
+    }
+
+    public function delete()
+    {
+        $eventUuid = $_GET['uuid'] ?? 0;
+        $this->eventService->deleteEventByUuid($eventUuid);
+        header('Location: /events');
+        exit;    
+    }
+
     public function apiList()
     {
         $events = $this->eventService->getAllEvents();

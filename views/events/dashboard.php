@@ -7,7 +7,11 @@
 
 <div class="container mt-5">
     <h2 class="text-center">Event Dashboard</h2>
-    <a href="/events/add" class="btn btn-success mb-3">Add Event</a>
+    
+    <?php if (isset($_SESSION['user'])): ?>
+        <a href="/events/add" class="btn btn-success mb-3">Add Event</a>           
+    <?php endif; ?>
+    
     <table class="table table-striped">
         <thead>
             <tr>
@@ -26,8 +30,8 @@
                     <td>
                         <a href="/events/details?uuid=<?= $event->uuid; ?>" class="btn btn-primary btn-sm">View</a>
                         <?php if (isset($_SESSION['user'])): ?>
-                            <a href="/events/details?uuid=<?= $event->uuid; ?>" class="btn btn-warning btn-sm">Edit</a>
-                            <a href="/events/details?uuid=<?= $event->uuid; ?>" class="btn btn-danger btn-sm">Delete</a>                        
+                            <a href="/events/edit?uuid=<?= $event->uuid; ?>" class="btn btn-warning btn-sm">Edit</a>
+                            <a href="/events/delete?uuid=<?= $event->uuid; ?>" class="btn btn-danger btn-sm">Delete</a>                        
                         <?php endif; ?>
                     </td>
                 </tr>

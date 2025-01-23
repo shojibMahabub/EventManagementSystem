@@ -7,4 +7,7 @@ return [
     '/events' => ['EventController', 'list'],
     '/events/add' => ['EventController', 'add'],
     '/events/details' => ['EventController', 'details'],
+    '/events/edit' => ['EventController', 'edit'],
+    '/events/update' => ['EventController', 'update'],
+    '/events/delete' => ['EventController', 'delete'],
 ];

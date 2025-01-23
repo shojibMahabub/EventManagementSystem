@@ -46,11 +46,26 @@ class EventRepository
         
     }
 
+    public function update(array $data)
+    {
+        try {
+            var_dump($data);
+            $stmt = $this->db->prepare("UPDATE events SET name = ?, description = ?, capacity = ? WHERE uuid = ?");
+            
+            $stmt->bind_param("ssii", $data['name'], $data['description'], $data['capacity'], $data['uuid']);
+            
+            return $stmt->execute();
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
+    }
+    
+
     public function findByUuid(string $uuid)
     {
         try {
             $stmt = $this->db->prepare("SELECT * FROM events WHERE uuid = ?");
-            $stmt->bind_param("i", $uuid);
+            $stmt->bind_param("s", $uuid);
             $stmt->execute();
             $result = $stmt->get_result();
     
@@ -64,5 +79,18 @@ class EventRepository
             echo $e->getMessage();
         }
     }
+
+    public function deleteByUuid(string $uuid)
+    {
+        try {
+            $stmt = $this->db->prepare("DELETE FROM events WHERE uuid = ?");
+            $stmt->bind_param("s", $uuid);
+            $stmt->execute();
+        }
+        catch (Exception $e) {
+            echo $e->getMessage();
+        }
+    }
+    
 }
 ?>
