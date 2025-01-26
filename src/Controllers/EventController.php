@@ -29,7 +29,9 @@ class EventController
             $data = [
                 'name' => $_POST['name'] ?? '',
                 'description' => $_POST['description'] ?? '',
-                'capacity' => $_POST['capacity'] ?? ''
+                'capacity' => $_POST['capacity'] ?? '',
+                'location' => $_POST['location'] ?? '',
+                'datetime' => $_POST['datetime'] ?? '',
             ];
 
             $result = $this->eventService->createEvent($data);
@@ -65,7 +67,9 @@ class EventController
             $data = [
                 'name' => $_POST['name'] ?? '',
                 'description' => $_POST['description'] ?? '',
-                'capacity' => $_POST['capacity'] ?? ''
+                'capacity' => $_POST['capacity'] ?? '',
+                'location' => $_POST['location'] ?? '',
+                'datetime' => $_POST['datetime'] ?? '',
             ];
 
             $result = $this->eventService->updateEvent($data); 

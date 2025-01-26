@@ -20,7 +20,7 @@ class EventRepository
         try {
             $result = $this->db->query("SELECT * FROM events");
                     while ($row = $result->fetch_assoc()) {
-            $events[] = new Event($row['uuid'], $row['name'], $row['description'], $row['capacity']);
+            $events[] = new Event($row['uuid'], $row['name'], $row['description'], $row['capacity'], $row['event_date_time'], $row['location'], $row['created_at'], $row['updated_at']);
         }
 
         return $events;
@@ -35,10 +35,32 @@ class EventRepository
     {
         try{
             $uuid = new Uuid();
-            $stmt = $this->db->prepare("INSERT INTO events (name, description, capacity, uuid) VALUES (?, ?, ?, ?)");
-            $stmt->bind_param("ssis", $data['name'], $data['description'], $data['capacity'], $uuid->generate());
+            $uuid = $uuid->generate();
+            $created_at = date('Y-m-d\TH:i');
+            $updated_at = date('Y-m-d\TH:i');
+
+            $stmt = $this->db->prepare("
+                INSERT INTO events (name, description, capacity, uuid, created_at, updated_at, location, event_date_time) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+            ");
             
-            return $stmt->execute();            
+            $stmt->bind_param("ssisssss", 
+                $data['name'], 
+                $data['description'], 
+                $data['capacity'],
+                $uuid,
+                $created_at,
+                $updated_at,
+                $data['location'],
+                $data['datetime']
+            );
+            
+            $result = $stmt->execute(); 
+
+            if ($result) {
+                return ['success' => true, 'message' => 'Event created successfully.'];
+            } else {
+                return ['success' => false, 'message' => 'Database error: ' . implode(' ', $stmt->errorInfo())];
+            }        
         }
         catch (Exception $e) {
             echo $e->getMessage();
@@ -70,7 +92,7 @@ class EventRepository
             $result = $stmt->get_result();
     
             if ($row = $result->fetch_assoc()) {
-                return new Event($row['uuid'], $row['name'], $row['description'], $row['capacity']);
+                return new Event($row['uuid'], $row['name'], $row['description'], $row['capacity'], $row['event_date_time'], $row['location'], $row['created_at'], $row['updated_at']);
             }
     
             return null;
