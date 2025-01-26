@@ -3,6 +3,7 @@ namespace src\Repositories;
 
 use Exception;
 use src\Models\Event;
+use src\Utils\Uuid;
 
 class EventRepository
 {
@@ -13,29 +14,29 @@ class EventRepository
         $this->db = $db;
     }
 
-    public function getAll(): array
+    public function getAll()
     {
         $events = [];
         try {
             $result = $this->db->query("SELECT * FROM events");
+                    while ($row = $result->fetch_assoc()) {
+            $events[] = new Event($row['uuid'], $row['name'], $row['description'], $row['capacity']);
+        }
+
+        return $events;
         }
         
         catch (Exception $e) {
             echo $e->getMessage();
         }
-
-        while ($row = $result->fetch_assoc()) {
-            $events[] = new Event($row['id'], $row['name'], $row['description'], $row['capacity']);
-        }
-
-        return $events;
     }
 
-    public function create(array $data): bool
+    public function create(array $data)
     {
         try{
-            $stmt = $this->db->prepare("INSERT INTO events (name, description, capacity) VALUES (?, ?, ?)");
-            $stmt->bind_param("ssi", $data['name'], $data['description'], $data['capacity']);
+            $uuid = new Uuid();
+            $stmt = $this->db->prepare("INSERT INTO events (name, description, capacity, uuid) VALUES (?, ?, ?, ?)");
+            $stmt->bind_param("ssis", $data['name'], $data['description'], $data['capacity'], $uuid->generate());
             
             return $stmt->execute();            
         }
@@ -45,18 +46,51 @@ class EventRepository
         
     }
 
-    public function findById(int $id): ?Event
+    public function update(array $data)
     {
-        $stmt = $this->db->prepare("SELECT * FROM events WHERE id = ?");
-        $stmt->bind_param("i", $id);
-        $stmt->execute();
-        $result = $stmt->get_result();
-
-        if ($row = $result->fetch_assoc()) {
-            return new Event($row['id'], $row['name'], $row['description'], $row['capacity']);
+        try {
+            var_dump($data);
+            $stmt = $this->db->prepare("UPDATE events SET name = ?, description = ?, capacity = ? WHERE uuid = ?");
+            
+            $stmt->bind_param("ssii", $data['name'], $data['description'], $data['capacity'], $data['uuid']);
+            
+            return $stmt->execute();
+        } catch (Exception $e) {
+            echo $e->getMessage();
         }
-
-        return null;
     }
+    
+
+    public function findByUuid(string $uuid)
+    {
+        try {
+            $stmt = $this->db->prepare("SELECT * FROM events WHERE uuid = ?");
+            $stmt->bind_param("s", $uuid);
+            $stmt->execute();
+            $result = $stmt->get_result();
+    
+            if ($row = $result->fetch_assoc()) {
+                return new Event($row['uuid'], $row['name'], $row['description'], $row['capacity']);
+            }
+    
+            return null;
+        }
+        catch (Exception $e) {
+            echo $e->getMessage();
+        }
+    }
+
+    public function deleteByUuid(string $uuid)
+    {
+        try {
+            $stmt = $this->db->prepare("DELETE FROM events WHERE uuid = ?");
+            $stmt->bind_param("s", $uuid);
+            $stmt->execute();
+        }
+        catch (Exception $e) {
+            echo $e->getMessage();
+        }
+    }
+    
 }
 ?>

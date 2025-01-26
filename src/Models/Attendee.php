@@ -1,7 +1,7 @@
 <?php
 namespace src\Models;
 
-class Event
+class Attendee
 {
     public $uuid;
     public $name;

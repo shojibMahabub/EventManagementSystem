@@ -2,6 +2,8 @@
 <?php
 require_once 'config.php';
 
+session_start();
+
 $config = Config::getInstance();
 $db = $config->getDatabaseConnection();
 

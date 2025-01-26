@@ -1,6 +1,7 @@
 <?php
 namespace src\Repositories;
 
+use Exception;
 use src\Models\User;
 
 class UserRepository
@@ -12,7 +13,7 @@ class UserRepository
         $this->db = $db;
     }
 
-    public function findByEmail(string $email): ?User
+    public function findByEmail(string $email)
     {
         $stmt = $this->db->prepare("SELECT * FROM users WHERE email = ?");
         $stmt->bind_param("s", $email);
@@ -20,17 +21,23 @@ class UserRepository
         $result = $stmt->get_result();
 
         if ($row = $result->fetch_assoc()) {
-            return new User($row['id'], $row['name'], $row['email'], $row['password']);
+            return new User($row['uuid'], $row['name'], $row['email'], $row['password']);
         }
 
         return null;
     }
 
-    public function createUser(array $data): bool
+    public function createUser(array $data)
     {
-        $stmt = $this->db->prepare("INSERT INTO users (name, email, password) VALUES (?, ?, ?)");
-        $stmt->bind_param("sss", $data['name'], $data['email'], $data['password']);
-        return $stmt->execute();
+        try {
+            $stmt = $this->db->prepare("INSERT INTO users (name, email, password, uuid) VALUES (?, ?, ?, ?)");
+            $stmt->bind_param("ssss", $data['name'], $data['email'], $data['password'], $data['uuid']);
+            return $stmt->execute();
+        }
+        catch (Exception $e) {
+            echo $e->getMessage();
+        }
+        
     }
 }
 ?>
