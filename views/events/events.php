@@ -17,6 +17,8 @@
             <tr>
                 <th>Name</th>
                 <th>Description</th>
+                <th>Location</th>
+                <th>Date Time</th>
                 <th>Capacity</th>
                 <th>Actions</th>
             </tr>
@@ -26,6 +28,8 @@
                 <tr>
                     <td><?= htmlspecialchars($event->name); ?></td>
                     <td><?= htmlspecialchars($event->description); ?></td>
+                    <td><?= htmlspecialchars($event->location); ?></td>
+                    <td><?= htmlspecialchars($event->event_date_time); ?></td>
                     <td><?= $event->capacity; ?></td>
                     <td>
                         <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
