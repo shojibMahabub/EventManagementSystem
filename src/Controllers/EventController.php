@@ -20,7 +20,7 @@ class EventController
     public function list()
     {
         $events = $this->eventService->getAllEvents();
-        include __DIR__ . '/../../views/events/dashboard.php';
+        include __DIR__ . '/../../views/events/events.php';
     }
 
     public function add()
@@ -99,8 +99,8 @@ class EventController
 
     public function apiDetails()
     {
-        $eventId = $_GET['id'] ?? 0;
-        $event = $this->eventService->getEventById($eventId);
+        $eventUuid = $_GET['uuid'] ?? 0;
+        $event = $this->eventService->getEventByUuid($eventUuid);
 
         header('Content-Type: application/json');
         echo json_encode($event);

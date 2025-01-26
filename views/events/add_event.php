@@ -29,7 +29,7 @@
             <input type="number" class="form-control" id="capacity" name="capacity" required value="<?php echo isset($event->capacity) ? $event->capacity : ''; ?>">
         </div>
         
-        <button type="submit" class="btn btn-success w-100"><?php echo $button ?></button>
+        <button type="submit" class="btn btn-light w-100"><?php echo $button ?></button>
     </form>
 </div>
 
