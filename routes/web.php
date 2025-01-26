@@ -1,5 +1,6 @@
 <?php
 return [
+    '/' => ['EventController', 'index'],
     '/home' => ['EventController', 'index'],
     '/login' => ['AuthController', 'login'],
     '/logout' => ['AuthController', 'logout'],
@@ -10,4 +11,7 @@ return [
     '/events/edit' => ['EventController', 'edit'],
     '/events/update' => ['EventController', 'update'],
     '/events/delete' => ['EventController', 'delete'],
+
+    '/attendee/register' => ['AttendeeController', 'register'],
+
 ];

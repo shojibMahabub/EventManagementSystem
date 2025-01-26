@@ -67,9 +67,8 @@ class EventController
                 'description' => $_POST['description'] ?? '',
                 'capacity' => $_POST['capacity'] ?? ''
             ];
-            die(json_encode($data));
 
-            $result = $this->eventService->updateEvent($data);
+            $result = $this->eventService->updateEvent($data); 
 
             if ($result['success']) {
                 header('Location: /events');
