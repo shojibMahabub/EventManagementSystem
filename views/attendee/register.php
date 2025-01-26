@@ -1,8 +1,8 @@
 <?php include __DIR__ . '/../templates/header.php'; ?>
 
 <div class="container mt-5">
-    <h2 class="text-center">Register</h2>
-    <form method="POST" action="/register" class="mt-4">
+    <h2 class="text-center">Attendee Registeration Form</h2>
+    <form method="POST" action="/attendee/register" class="mt-4">
         <div class="mb-3">
             <label for="name" class="form-label">Name</label>
             <input type="text" class="form-control" id="name" name="name" required>
@@ -15,7 +15,7 @@
             <label for="password" class="form-label">Password</label>
             <input type="password" class="form-control" id="password" name="password" required>
         </div>
-        <button type="submit" class="btn btn-light w-100">Register</button>
+        <button type="submit" class="btn btn-primary w-100">Register</button>
     </form>
 </div>
 

@@ -14,14 +14,13 @@ class EventController
 
     public function index()
     {
-        $events = $this->eventService->getAllEvents();
-        include __DIR__ . '/../../views/events/dashboard.php';
+        include __DIR__ . '/../../views/events/home.php';
     }
 
     public function list()
     {
         $events = $this->eventService->getAllEvents();
-        include __DIR__ . '/../../views/events/dashboard.php';
+        include __DIR__ . '/../../views/events/events.php';
     }
 
     public function add()
@@ -30,7 +29,9 @@ class EventController
             $data = [
                 'name' => $_POST['name'] ?? '',
                 'description' => $_POST['description'] ?? '',
-                'capacity' => $_POST['capacity'] ?? ''
+                'capacity' => $_POST['capacity'] ?? '',
+                'location' => $_POST['location'] ?? '',
+                'datetime' => $_POST['datetime'] ?? '',
             ];
 
             $result = $this->eventService->createEvent($data);
@@ -48,9 +49,48 @@ class EventController
 
     public function details()
     {
-        $eventId = $_GET['id'] ?? 0;
-        $event = $this->eventService->getEventById($eventId);
+        $eventUuid = $_GET['uuid'] ?? 0;
+        $event = $this->eventService->getEventByUuid($eventUuid);
         include __DIR__ . '/../../views/events/event_details.php';
+    }
+
+
+    public function edit()
+    {
+        $eventUuid = $_GET['uuid'] ?? 0;
+        $event = $this->eventService->getEventByUuid($eventUuid);
+        include __DIR__ . '/../../views/events/add_event.php';
+    }
+    public function update()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $data = [
+                'name' => $_POST['name'] ?? '',
+                'description' => $_POST['description'] ?? '',
+                'capacity' => $_POST['capacity'] ?? '',
+                'location' => $_POST['location'] ?? '',
+                'datetime' => $_POST['datetime'] ?? '',
+            ];
+
+            $result = $this->eventService->updateEvent($data); 
+
+            if ($result['success']) {
+                header('Location: /events');
+                exit;
+            } else {
+                echo $result['message'];
+            }
+        } else {
+            echo "Method not supported";
+        }
+    }
+
+    public function delete()
+    {
+        $eventUuid = $_GET['uuid'] ?? 0;
+        $this->eventService->deleteEventByUuid($eventUuid);
+        header('Location: /events');
+        exit;    
     }
 
     public function apiList()
@@ -63,8 +103,8 @@ class EventController
 
     public function apiDetails()
     {
-        $eventId = $_GET['id'] ?? 0;
-        $event = $this->eventService->getEventById($eventId);
+        $eventUuid = $_GET['uuid'] ?? 0;
+        $event = $this->eventService->getEventByUuid($eventUuid);
 
         header('Content-Type: application/json');
         echo json_encode($event);

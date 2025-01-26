@@ -5,8 +5,8 @@
     <?php if ($event): ?>
         <div class="card mt-3">
             <div class="card-body">
-                <h5 class="card-title"><?= htmlspecialchars($event->name); ?></h5>
-                <p class="card-text"><?= htmlspecialchars($event->description); ?></p>
+                <h5 class="card-title">Name : <?= htmlspecialchars($event->name); ?></h5>
+                <p class="card-text">Description : <?= htmlspecialchars($event->description); ?></p>
                 <p><strong>Capacity:</strong> <?= $event->capacity; ?></p>
             </div>
         </div>

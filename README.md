@@ -11,12 +11,12 @@
 ---
 
 ### **Epic 2: Event Management**
-- **Task_007:** Design database schema for events (fields: name, description, date, capacity, etc.).
-- **Task_008:** Create functionality for adding new events.
-- **Task_009:** Implement edit functionality for events.
-- **Task_010:** Create delete functionality for events.
-- **Task_011:** Add server-side validation for event creation and updates.
-- **Task_012:** Develop a responsive UI for creating and managing events.
+- **Task_007:** Design database schema for events (fields: name, description, date, capacity, etc.). [x] Done
+- **Task_008:** Create functionality for adding new events. [x] Done
+- **Task_009:** Implement edit functionality for events. [x] Done
+- **Task_010:** Create delete functionality for events. [x] Done
+- **Task_011:** Add server-side validation for event creation and updates. [x] Done
+- **Task_012:** Develop a responsive UI for creating and managing events. [x] Done
 
 ---
 

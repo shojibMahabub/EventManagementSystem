@@ -30,6 +30,13 @@ class AuthController
         }
     }
 
+    public function logout()
+    {
+        session_destroy();
+        header('Location: /login');
+        exit;
+    }
+
     public function register()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
