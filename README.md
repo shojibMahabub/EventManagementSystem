@@ -58,10 +58,10 @@
 - **Task_028:** Deploy the project on a hosting platform (Heroku, Vercel, etc.). ✅
 - **Task_029:** Prepare a README file with:
   - Project overview
-  - Features [x] Done
+  - Features ✅
   - Installation instructions
   - Login credentials for testing
-  - Live demo link [x] Done
+  - Live demo link ✅
 - **Task_030:** Upload the complete project to GitHub.
 
 ---
