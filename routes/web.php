@@ -13,5 +13,5 @@ return [
     '/events/delete' => ['EventController', 'delete'],
 
     '/attendee/register' => ['AttendeeController', 'register'],
-
+    '/update_attendee_event' => ['AttendeeController', 'attachEvent'],
 ];

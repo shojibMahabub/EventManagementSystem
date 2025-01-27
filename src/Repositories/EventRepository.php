@@ -29,7 +29,8 @@ class EventRepository
                     $row['event_date_time'], 
                     $row['location'], 
                     $row['created_at'], 
-                    $row['updated_at']
+                    $row['updated_at'],
+                    $row['spot_left'],
                 );
             }
 
@@ -110,7 +111,9 @@ class EventRepository
                     $row['event_date_time'], 
                     $row['location'], 
                     $row['created_at'], 
-                    $row['updated_at']
+                    $row['updated_at'],
+                    $row['spot_left']
+
                 );
             }
     

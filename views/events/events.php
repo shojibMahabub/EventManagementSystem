@@ -16,21 +16,36 @@
         <thead>
             <tr>
                 <th>Name</th>
-                <th>Description</th>
                 <th>Location</th>
                 <th>Date Time</th>
                 <th>Capacity</th>
+                <th>Spot left</th>
                 <th>Actions</th>
             </tr>
         </thead>
         <tbody>
+
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-end">
+                    <li class="page-item disabled">
+                    <a class="page-link">Previous</a>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item">
+                    <a class="page-link" href="#">Next</a>
+                    </li>
+                </ul>
+            </nav>
+
             <?php foreach ($events as $event): ?>
                 <tr>
                     <td><?= htmlspecialchars($event->name); ?></td>
-                    <td><?= htmlspecialchars($event->description); ?></td>
                     <td><?= htmlspecialchars($event->location); ?></td>
                     <td><?= htmlspecialchars($event->event_date_time); ?></td>
                     <td><?= $event->capacity; ?></td>
+                    <td><?= $event->spot_left; ?></td>
                     <td>
                         <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
                             <a href="/events/details?uuid=<?= $event->uuid; ?>" class="btn btn-light" role="button" aria-pressed="true">Details</a>
@@ -38,7 +53,7 @@
                             <?php if (isset($_SESSION['user']) && $_SESSION['user']->role != 'attendee'): ?>
                             <a href="/events/edit?uuid=<?= $event->uuid; ?>"  class="btn btn-light" role="button" aria-pressed="true">Edit</a>
                             <a href="/events/delete?uuid=<?= $event->uuid; ?>"  class="btn btn-light" role="button" aria-pressed="true">Delete</a>                        
-                            <?php else: ?>
+                            <?php elseif (isset($_SESSION['user']) && $_SESSION['user']->role == 'attendee'): ?>
                                 <div class="btn-group" role="group">
                                 <button id="btnGroupDrop1" type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Going

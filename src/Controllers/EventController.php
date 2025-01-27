@@ -93,6 +93,22 @@ class EventController
         exit;    
     }
 
+    public function attachEvent() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            echo "dnnn";
+            
+            $data = [
+                'event_uuid' => $_POST['event_uuid'] ?? '',
+                'status' => $_POST['status'] ?? '',
+                'user_uuid' => $_SESSION['user']->uuid ?? '',
+            ];
+
+            var_dump($data);
+        } else {
+            echo "Method not supported";
+        }
+    }
+
     public function apiList()
     {
         $events = $this->eventService->getAllEvents();
