@@ -1,5 +1,8 @@
 # EventManagementSystem
 
+
+## HOST - http://47.129.224.127/
+
 ### **Epic 1: User Authentication**
 - **Task_001:** Set up database schema for users (fields: username, email, password, etc.).
 - **Task_002:** Implement user registration with secure password hashing.
