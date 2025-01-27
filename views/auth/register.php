@@ -15,6 +15,18 @@
             <label for="password" class="form-label">Password</label>
             <input type="password" class="form-control" id="password" name="password" required>
         </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="role" id="attendee_role" value="attendee" checked>
+            <label class="form-check-label" for="attendee_role">Attendee</label>
+            </div>
+            <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="role" id="admin_role" value="admin" disabled>
+            <label class="form-check-label" for="admin_role">Admin</label>
+            </div>
+            <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="role" id="superadmin_role" value="superadmin" disabled>
+            <label class="form-check-label" for="superadmin_role">Super Admin</label>
+        </div>
         <button type="submit" class="btn btn-light w-100">Register</button>
     </form>
 </div>

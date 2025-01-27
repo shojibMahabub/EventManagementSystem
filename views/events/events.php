@@ -6,9 +6,9 @@
 ?>
 
 <div class="container mt-5">
-    <h2 class="text-center">Event Dashboard</h2>
+    <h2 class="text-center">Events</h2>
     
-    <?php if (isset($_SESSION['user'])): ?>
+    <?php if (isset($_SESSION['user']) && $_SESSION['user']->role != 'attendee'): ?>
         <a href="/events/add" class="btn btn-light mb-3">Add Event</a>           
     <?php endif; ?>
     
@@ -35,7 +35,7 @@
                         <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
                             <a href="/events/details?uuid=<?= $event->uuid; ?>" class="btn btn-light" role="button" aria-pressed="true">Details</a>
                             
-                            <?php if (isset($_SESSION['user'])): ?>
+                            <?php if (isset($_SESSION['user']) && $_SESSION['user']->role != 'attendee'): ?>
                             <a href="/events/edit?uuid=<?= $event->uuid; ?>"  class="btn btn-light" role="button" aria-pressed="true">Edit</a>
                             <a href="/events/delete?uuid=<?= $event->uuid; ?>"  class="btn btn-light" role="button" aria-pressed="true">Delete</a>                        
                             <?php else: ?>
