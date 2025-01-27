@@ -55,13 +55,13 @@
 ---
 
 ### **Epic 7: Hosting and Documentation**
-- **Task_028:** Deploy the project on a hosting platform (Heroku, Vercel, etc.).
+- **Task_028:** Deploy the project on a hosting platform (Heroku, Vercel, etc.). \check
 - **Task_029:** Prepare a README file with:
   - Project overview
-  - Features
+  - Features [x] Done
   - Installation instructions
   - Login credentials for testing
-  - Live demo link
+  - Live demo link [x] Done
 - **Task_030:** Upload the complete project to GitHub.
 
 ---
