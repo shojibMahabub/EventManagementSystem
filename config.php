@@ -52,8 +52,7 @@ class Config
         $password = $this->get('DB_PASS', '');
 
         try {
-            $db = new mysqli($host, $username, $password, $dbname);
-            return $db;
+            return new mysqli($host, $username, $password, $dbname);
         }
         catch (Exception $e) {
             echo "Database : " . $e->getMessage();

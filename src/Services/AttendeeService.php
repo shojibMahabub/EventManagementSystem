@@ -13,4 +13,4 @@ class AttendeeService
         $this->attendeeRepository = new AttendeeRepository($db);
     }
 }
-?>
+

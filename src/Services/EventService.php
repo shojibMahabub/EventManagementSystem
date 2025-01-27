@@ -90,4 +90,4 @@ class EventService
         return $this->eventRepository->deleteByUuid($uuid);
     }
 }
-?>
+

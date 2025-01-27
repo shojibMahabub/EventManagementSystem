@@ -19,11 +19,21 @@ class EventRepository
         $events = [];
         try {
             $result = $this->db->query("SELECT * FROM events");
-                    while ($row = $result->fetch_assoc()) {
-            $events[] = new Event($row['uuid'], $row['name'], $row['description'], $row['capacity'], $row['event_date_time'], $row['location'], $row['created_at'], $row['updated_at']);
-        }
+            
+            while ($row = $result->fetch_assoc()) {
+                $events[] = new Event(
+                    $row['uuid'], 
+                    $row['name'], 
+                    $row['description'], 
+                    $row['capacity'], 
+                    $row['event_date_time'], 
+                    $row['location'], 
+                    $row['created_at'], 
+                    $row['updated_at']
+                );
+            }
 
-        return $events;
+            return $events;
         }
         
         catch (Exception $e) {
@@ -92,7 +102,16 @@ class EventRepository
             $result = $stmt->get_result();
     
             if ($row = $result->fetch_assoc()) {
-                return new Event($row['uuid'], $row['name'], $row['description'], $row['capacity'], $row['event_date_time'], $row['location'], $row['created_at'], $row['updated_at']);
+                return new Event(
+                    $row['uuid'], 
+                    $row['name'], 
+                    $row['description'], 
+                    $row['capacity'], 
+                    $row['event_date_time'], 
+                    $row['location'], 
+                    $row['created_at'], 
+                    $row['updated_at']
+                );
             }
     
             return null;
@@ -115,4 +134,4 @@ class EventRepository
     }
     
 }
-?>
+
