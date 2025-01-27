@@ -51,13 +51,13 @@ class Config
         $username = $this->get('DB_USER', '');
         $password = $this->get('DB_PASS', '');
 
-        $db = new mysqli($host, $username, $password, $dbname);
-
-        if ($db->connect_error) {
-            die('Database connection failed: ' . $db->connect_error);
+        try {
+            $db = new mysqli($host, $username, $password, $dbname);
+            return $db;
         }
-
-        return $db;
+        catch (Exception $e) {
+            echo "Database : " . $e->getMessage();
+        }
     }
 }
 
