@@ -49,7 +49,7 @@
 
 ### **Epic 6: Security Enhancements**
 - **Task_025:** Ensure all user inputs are validated client-side and server-side.
-- **Task_026:** Use prepared statements for database queries to prevent SQL injection.
+- **Task_026:** Use prepared statements for database queries to prevent SQL injection. ✅
 - **Task_027:** Review and implement secure session handling practices.
 
 ---
@@ -62,13 +62,13 @@
   - Installation instructions
   - Login credentials for testing
   - Live demo link ✅
-- **Task_030:** Upload the complete project to GitHub.
+- **Task_030:** Upload the complete project to GitHub. ✅
 
 ---
 
 ### **Epic 8: Bonus Features**
 - **Task_031:** Implement search functionality for events and attendees.
-- **Task_032:** Use AJAX for a smooth attendee registration experience.
+- **Task_032:** Use AJAX for a smooth attendee registration experience. ✅
 - **Task_033:** Develop a JSON API endpoint to fetch event details.
 
 ---

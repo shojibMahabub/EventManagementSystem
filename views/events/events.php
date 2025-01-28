@@ -58,15 +58,18 @@ if (session_status() === PHP_SESSION_NONE) {
                                aria-pressed="true">Delete</a>
                         <?php elseif (isset($_SESSION['user']) && $_SESSION['user']->role == 'attendee'): ?>
                             <div class="btn-group" role="group">
-
+                                <?php
+                                    $button_label = (isset($event->event_users[0]->event_status)) ?  $event->event_users[0]->event_status : 'Join';
+                                    $button_label = ($button_label === 'NOTGOING') ? 'Not Going' : $button_label;
+                                ?>
                                 <button id="btnGroupDrop1" type="button" class="btn btn-light dropdown-toggle"
                                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <?php echo ucfirst(strtolower($event->event_users[0]->event_status)) ?>
+                                    <?php echo ucfirst(strtolower($button_label)) ?>
                                 </button>
 
                                 <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                    <a class="dropdown-item" href="#">Yes</a>
-                                    <a class="dropdown-item" href="#">No</a>
+                                    <a class="dropdown-item" href="#">Going</a>
+                                    <a class="dropdown-item" href="#">Not going</a>
                                     <a class="dropdown-item" href="#">Interested</a>
                                 </div>
                             </div>
