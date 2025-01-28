@@ -142,12 +142,11 @@ class EventRepository
         try {
             $result = $this->db->query("
                 SELECT 
-                e.*, 
-                eu.uuid AS event_user_uuid, 
-                eu.user_uuid, 
-                eu.event_status 
-                FROM events e
-                JOIN event_users eu ON e.uuid = eu.event_uuid
+                    e.*, 
+                    eu.uuid AS event_user_uuid, 
+                    eu.user_uuid, 
+                    eu.event_status 
+                FROM events e LEFT JOIN event_users eu ON e.uuid = eu.event_uuid;
             ");
 
             if (!$result) {
