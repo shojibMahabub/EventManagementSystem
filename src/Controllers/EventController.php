@@ -72,6 +72,7 @@ class EventController
                 'capacity' => $_POST['capacity'] ?? '',
                 'location' => $_POST['location'] ?? '',
                 'datetime' => $_POST['datetime'] ?? '',
+                'uuid' => $_POST['uuid'] ?? '',
             ];
 
             $result = $this->eventService->updateEvent($data);

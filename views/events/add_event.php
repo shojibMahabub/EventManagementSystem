@@ -14,6 +14,12 @@ if ($_SERVER['PATH_INFO'] === '/events/edit' || array_key_exists('REDIRECT_URL',
 <div class="container mt-5">
     <h2 class="text-center"><?php echo $pageTitle ?></h2>
     <form method="POST" action=<?php echo $action ?> class="mt-4">
+
+
+        <?php if (isset($event->uuid)) : ?>
+            <input type="hidden" name="uuid" value="<?php echo htmlspecialchars($event->uuid); ?>">
+        <?php endif; ?>
+
         <div class="mb-3">
             <label for="name" class="form-label">Event Name</label>
             <input type="text" class="form-control" id="name" name="name" required
