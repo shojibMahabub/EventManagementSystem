@@ -1,4 +1,5 @@
 <?php
+
 namespace src\Controllers;
 
 use src\Services\EventService;
@@ -19,7 +20,7 @@ class EventController
 
     public function list()
     {
-        $events = $this->eventService->getAllEvents();
+        $events = $this->eventService->getAllEventsWithUsers();
         include __DIR__ . '/../../views/events/events.php';
     }
 
@@ -61,6 +62,7 @@ class EventController
         $event = $this->eventService->getEventByUuid($eventUuid);
         include __DIR__ . '/../../views/events/add_event.php';
     }
+
     public function update()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -72,7 +74,7 @@ class EventController
                 'datetime' => $_POST['datetime'] ?? '',
             ];
 
-            $result = $this->eventService->updateEvent($data); 
+            $result = $this->eventService->updateEvent($data);
 
             if ($result['success']) {
                 header('Location: /events');
@@ -90,7 +92,7 @@ class EventController
         $eventUuid = $_GET['uuid'] ?? 0;
         $this->eventService->deleteEventByUuid($eventUuid);
         header('Location: /events');
-        exit;    
+        exit;
     }
 
     public function apiList()

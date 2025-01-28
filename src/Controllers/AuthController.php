@@ -1,4 +1,5 @@
 <?php
+
 namespace src\Controllers;
 
 use src\Services\AuthService;
@@ -43,7 +44,8 @@ class AuthController
             $data = [
                 'name' => $_POST['name'] ?? '',
                 'email' => $_POST['email'] ?? '',
-                'password' => $_POST['password'] ?? ''
+                'password' => $_POST['password'] ?? '',
+                'role' => $_POST['role'] ?? ''
             ];
 
             $result = $this->authService->register($data);

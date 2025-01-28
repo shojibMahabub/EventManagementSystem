@@ -1,4 +1,5 @@
 <?php
+
 class Config
 {
     private static $instance = null;
@@ -51,13 +52,11 @@ class Config
         $username = $this->get('DB_USER', '');
         $password = $this->get('DB_PASS', '');
 
-        $db = new mysqli($host, $username, $password, $dbname);
-
-        if ($db->connect_error) {
-            die('Database connection failed: ' . $db->connect_error);
+        try {
+            return new mysqli($host, $username, $password, $dbname);
+        } catch (Exception $e) {
+            echo "Database : " . $e->getMessage();
         }
-
-        return $db;
     }
 }
 

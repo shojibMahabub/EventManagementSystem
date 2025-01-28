@@ -11,8 +11,11 @@ class Event
     public $location;
     public $created_at;
     public $updated_at;
+    public $spot_left;
+    public $event_users = [];
 
-    public function __construct($uuid, $name, $description, $capacity, $event_date_time, $location, $created_at, $updated_at)
+
+    public function __construct($uuid, $name, $description, $capacity, $event_date_time, $location, $created_at, $updated_at, $spot_left)
     {
         $this->uuid = $uuid;
         $this->name = $name;
@@ -22,6 +25,13 @@ class Event
         $this->location = $location;
         $this->created_at = $created_at;
         $this->updated_at = $updated_at;
+        $this->spot_left = $spot_left;
+    }
+
+    public function addEventUser(EventUser $eventUser)
+    {
+        $this->event_users[] = $eventUser;
     }
 }
+
 ?>

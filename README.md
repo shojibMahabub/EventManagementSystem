@@ -1,22 +1,25 @@
 # EventManagementSystem
 
+
+## HOST - http://47.129.224.127/
+
 ### **Epic 1: User Authentication**
-- **Task_001:** Set up database schema for users (fields: username, email, password, etc.).
-- **Task_002:** Implement user registration with secure password hashing.
-- **Task_003:** Implement user login functionality.
-- **Task_004:** Add server-side validation for registration and login forms.
-- **Task_005:** Build responsive UI for login and registration pages.
-- **Task_006:** Create session management for authenticated users.
+- **Task_001:** Set up database schema for users (fields: username, email, password, etc.). ✅
+- **Task_002:** Implement user registration with secure password hashing. ✅
+- **Task_003:** Implement user login functionality. ✅
+- **Task_004:** Add server-side validation for registration and login forms. ✅
+- **Task_005:** Build responsive UI for login and registration pages. ✅
+- **Task_006:** Create session management for authenticated users. ✅
 
 ---
 
 ### **Epic 2: Event Management**
-- **Task_007:** Design database schema for events (fields: name, description, date, capacity, etc.). [x] Done
-- **Task_008:** Create functionality for adding new events. [x] Done
-- **Task_009:** Implement edit functionality for events. [x] Done
-- **Task_010:** Create delete functionality for events. [x] Done
-- **Task_011:** Add server-side validation for event creation and updates. [x] Done
-- **Task_012:** Develop a responsive UI for creating and managing events. [x] Done
+- **Task_007:** Design database schema for events (fields: name, description, date, capacity, etc.). ✅
+- **Task_008:** Create functionality for adding new events. ✅
+- **Task_009:** Implement edit functionality for events. ✅
+- **Task_010:** Create delete functionality for events. ✅
+- **Task_011:** Add server-side validation for event creation and updates. ✅
+- **Task_012:** Develop a responsive UI for creating and managing events. ✅
 
 ---
 
@@ -52,13 +55,13 @@
 ---
 
 ### **Epic 7: Hosting and Documentation**
-- **Task_028:** Deploy the project on a hosting platform (Heroku, Vercel, etc.).
+- **Task_028:** Deploy the project on a hosting platform (Heroku, Vercel, etc.). ✅
 - **Task_029:** Prepare a README file with:
   - Project overview
-  - Features
+  - Features ✅
   - Installation instructions
   - Login credentials for testing
-  - Live demo link
+  - Live demo link ✅
 - **Task_030:** Upload the complete project to GitHub.
 
 ---

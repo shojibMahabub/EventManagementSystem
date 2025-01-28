@@ -21,7 +21,7 @@ class UserRepository
         $result = $stmt->get_result();
 
         if ($row = $result->fetch_assoc()) {
-            return new User($row['uuid'], $row['name'], $row['email'], $row['password']);
+            return new User($row['uuid'], $row['name'], $row['email'], $row['password'], $row['role']);
         }
 
         return null;
@@ -30,14 +30,14 @@ class UserRepository
     public function createUser(array $data)
     {
         try {
-            $stmt = $this->db->prepare("INSERT INTO users (name, email, password, uuid) VALUES (?, ?, ?, ?)");
-            $stmt->bind_param("ssss", $data['name'], $data['email'], $data['password'], $data['uuid']);
+            $stmt = $this->db->prepare("INSERT INTO users (name, email, password, uuid, role) VALUES (?, ?, ?, ?, ?)");
+            $stmt->bind_param("sssss", $data['name'], $data['email'], $data['password'], $data['uuid'], $data['role']);
             return $stmt->execute();
+        } catch (Exception $e) {
+            die($e->getMessage());
         }
-        catch (Exception $e) {
-            echo $e->getMessage();
-        }
-        
+
     }
 }
+
 ?>

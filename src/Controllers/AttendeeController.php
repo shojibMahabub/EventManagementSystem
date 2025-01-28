@@ -1,4 +1,5 @@
 <?php
+
 namespace src\Controllers;
 
 use src\Services\AttendeeService;
@@ -37,6 +38,23 @@ class AttendeeController
             }
         } else {
             include __DIR__ . '/../../views/attendee/register.php';
+        }
+
+    }
+
+    public function attachEvent()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+            $data = [
+                'event_uuid' => $_POST['event_uuid'] ?? '',
+                'status' => $_POST['status'] ?? '',
+                'user_uuid' => $_SESSION['user']->uuid ?? '',
+            ];
+            $result = $this->attendeeService->attachEventToAttendee($data);
+
+        } else {
+            echo "Method not supported";
         }
 
     }

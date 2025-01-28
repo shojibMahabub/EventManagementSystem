@@ -25,7 +25,7 @@ class AuthService
             return ['success' => false, 'message' => 'Invalid credentials.'];
         }
 
-        $_SESSION['user'] = $user->uuid;
+        $_SESSION['user'] = $user;
         return ['success' => true, 'message' => 'Login successful.'];
     }
 
@@ -37,12 +37,13 @@ class AuthService
 
         $uuid = new Uuid();
         $hashedPassword = password_hash($data['password'], PASSWORD_BCRYPT);
-        
+
         $result = $this->userRepository->createUser([
             'uuid' => $uuid->generate(),
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => $hashedPassword,
+            'role' => $data['role']
         ]);
 
         if ($result) {
@@ -52,4 +53,5 @@ class AuthService
         return ['success' => false, 'message' => 'Registration failed.'];
     }
 }
+
 ?>
