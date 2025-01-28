@@ -82,12 +82,32 @@ class EventRepository
     public function update(array $data)
     {
         try {
-            var_dump($data);
-            $stmt = $this->db->prepare("UPDATE events SET name = ?, description = ?, capacity = ? WHERE uuid = ?");
+            $stmt = $this->db->prepare("
+                UPDATE events 
+                    SET name = ?, 
+                    description = ?, 
+                    capacity = ?,
+                    location = ?,
+                    event_date_time = ? 
+                WHERE uuid = ?
+            ");
+            $stmt->bind_param("ssisss", 
+                $data['name'], 
+                $data['description'], 
+                $data['capacity'], 
+                $data['location'], 
+                $data['datetime'],
+                $data['uuid'],
+            );
 
-            $stmt->bind_param("ssii", $data['name'], $data['description'], $data['capacity'], $data['uuid']);
+            $res = $stmt->execute();
 
-            return $stmt->execute();
+            if (!$res) {
+                echo "Error: " . $stmt->error;
+            }
+
+            return $res;
+            
         } catch (Exception $e) {
             die($e->getMessage());
         }
