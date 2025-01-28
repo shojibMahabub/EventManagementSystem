@@ -16,29 +16,49 @@
 
 
 -- Dumping database structure for event_management
-DROP DATABASE IF EXISTS `event_management`;
-CREATE DATABASE IF NOT EXISTS `event_management` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `event_management`;
+DROP
+DATABASE IF EXISTS `event_management`;
+CREATE
+DATABASE IF NOT EXISTS `event_management` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE
+`event_management`;
 
 -- Dumping structure for table event_management.events
 DROP TABLE IF EXISTS `events`;
-CREATE TABLE IF NOT EXISTS `events` (
-  `uuid` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `name` varchar(100) NOT NULL,
-  `description` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `capacity` int NOT NULL,
-  `event_date_time` datetime NOT NULL,
-  `created_at` date NOT NULL DEFAULT '2025-02-01',
-  `updated_at` date NOT NULL DEFAULT '2025-02-01',
-  `location` varchar(50) NOT NULL DEFAULT 'DHAKA',
-  `spot_left` int DEFAULT NULL,
-  PRIMARY KEY (`uuid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE IF NOT EXISTS `events`
+(
+    `uuid`
+    varchar
+(
+    100
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+    `name` varchar
+(
+    100
+) NOT NULL,
+    `description` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+    `capacity` int NOT NULL,
+    `event_date_time` datetime NOT NULL,
+    `created_at` date NOT NULL DEFAULT '2025-02-01',
+    `updated_at` date NOT NULL DEFAULT '2025-02-01',
+    `location` varchar
+(
+    50
+) NOT NULL DEFAULT 'DHAKA',
+    `spot_left` int DEFAULT NULL,
+    PRIMARY KEY
+(
+    `uuid`
+)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE =utf8mb4_0900_ai_ci;
 
 -- Dumping data for table event_management.events: ~3 rows (approximately)
-DELETE FROM `events`;
-INSERT INTO `events` (`uuid`, `name`, `description`, `capacity`, `event_date_time`, `created_at`, `updated_at`, `location`, `spot_left`) VALUES
-	('044ec849-1ada-41f8-93a1-4c4c70edf4b2', 'Independence Day', 'Independence Day is commonly associated with parades, political speeches, fairs, concerts, ceremonies, and various other public and private events celebrating the history and traditions of Bangladesh. TV and radio stations broadcast special programs and patriotic songs in honor of Independence Day. A thirty-one gun salute may be conducted in the morning.[12] The main streets are decorated with national flags. Different political parties and socioeconomic organizations undertake programs to mark the day in a befitting manner, including paying respects at National Martyrs\' Memorial at Savar near Dhaka.[12]', 100, '2025-12-16 00:00:00', '2025-01-26', '2025-01-26', 'DHAKA', 12),
+DELETE
+FROM `events`;
+INSERT INTO `events` (`uuid`, `name`, `description`, `capacity`, `event_date_time`, `created_at`, `updated_at`,
+                      `location`, `spot_left`)
+VALUES ('044ec849-1ada-41f8-93a1-4c4c70edf4b2', 'Independence Day',
+        'Independence Day is commonly associated with parades, political speeches, fairs, concerts, ceremonies, and various other public and private events celebrating the history and traditions of Bangladesh. TV and radio stations broadcast special programs and patriotic songs in honor of Independence Day. A thirty-one gun salute may be conducted in the morning.[12] The main streets are decorated with national flags. Different political parties and socioeconomic organizations undertake programs to mark the day in a befitting manner, including paying respects at National Martyrs\' Memorial at Savar near Dhaka.[12]', 100, '2025-12-16 00:00:00', '2025-01-26', '2025-01-26', 'DHAKA', 12),
 	('4fc0f60a-0349-41fe-9de7-c9f1cf4979c7', 'May Day', '1st may', 100, '2025-02-01 00:00:00', '2025-02-01', '2025-02-01', 'DHAKA', 13),
 	('a2e7649e-bfdb-4882-ae2d-8718deb0ba3f', 'Victory Day', 'Victory Day', 10, '2025-02-01 00:00:00', '2025-02-01', '2025-02-01', 'DHAKA', 23);
 

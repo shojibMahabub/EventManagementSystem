@@ -1,4 +1,5 @@
 <?php
+
 namespace src\Controllers;
 
 use src\Services\AuthService;

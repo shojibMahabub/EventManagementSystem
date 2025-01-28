@@ -33,11 +33,11 @@ class UserRepository
             $stmt = $this->db->prepare("INSERT INTO users (name, email, password, uuid, role) VALUES (?, ?, ?, ?, ?)");
             $stmt->bind_param("sssss", $data['name'], $data['email'], $data['password'], $data['uuid'], $data['role']);
             return $stmt->execute();
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             die($e->getMessage());
         }
-        
+
     }
 }
+
 ?>

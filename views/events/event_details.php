@@ -1,17 +1,18 @@
 <?php include __DIR__ . '/../templates/header.php'; ?>
 
 <div class="card text-center">
-  <div class="card-header">
-    Event Details
-  </div>
-  <?php if ($event): ?>
+    <div class="card-header">
+        Event Details
+    </div>
+    <?php if ($event): ?>
         <div class="card mt-3">
             <div class="card-body">
                 <h5 class="card-title"><?= htmlspecialchars($event->name); ?></h5>
-                <p><strong>Capacity:</strong> <?= $event->capacity; ?> | <strong>Spot Left:</strong> <?= $event->spot_left; ?></p>
+                <p><strong>Capacity:</strong> <?= $event->capacity; ?> | <strong>Spot
+                        Left:</strong> <?= $event->spot_left; ?></p>
                 <p class="card-text"><?= htmlspecialchars($event->description); ?></p>
             </div>
-            
+
         </div>
         <div class="card-footer text-body-secondary">
 

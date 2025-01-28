@@ -1,4 +1,5 @@
 <?php
+
 namespace src\Controllers;
 
 use src\Services\AttendeeService;
@@ -41,9 +42,10 @@ class AttendeeController
 
     }
 
-    public function attachEvent() {
+    public function attachEvent()
+    {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            
+
             $data = [
                 'event_uuid' => $_POST['event_uuid'] ?? '',
                 'status' => $_POST['status'] ?? '',
@@ -54,6 +56,6 @@ class AttendeeController
         } else {
             echo "Method not supported";
         }
-    
+
     }
 }

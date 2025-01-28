@@ -1,8 +1,8 @@
 <?php
+
 namespace src\Repositories;
 
 use Exception;
-use src\Models\Attendee;
 use src\Utils\Uuid;
 
 class AttendeeRepository
@@ -14,7 +14,8 @@ class AttendeeRepository
         $this->db = $db;
     }
 
-    public function attachEventAttendee (array $data) {
+    public function attachEventAttendee(array $data)
+    {
 
         try {
 
@@ -25,62 +26,60 @@ class AttendeeRepository
                 INSERT INTO event_users (uuid, event_uuid, user_uuid, event_status)
                 VALUES (?, ?, ?, ?)
             ");
-            
+
             $stmt->bind_param("ssss",
                 $uuid,
                 $data['event_uuid'],
                 $data['user_uuid'],
                 $data['status']
             );
-            
+
             $result = $stmt->execute();
-            
+
             if ($result) {
                 return ['success' => true, 'message' => 'Event attached successfully.'];
             } else {
                 return ['success' => false, 'message' => 'Database error: ' . implode(' ', $stmt->errorInfo())];
-            }  
-        }
-        catch (Exception $e) {
+            }
+        } catch (Exception $e) {
             die($e->getMessage());
         }
     }
 
-    public function checkForExistingEvent ($data) {
-        try{
+    public function checkForExistingEvent($data)
+    {
+        try {
             $stmt = $this->db->prepare("SELECT * FROM event_users WHERE event_uuid = ? AND user_uuid = ?");
             $stmt->bind_param("ss", $data['event_uuid'], $data['user_uuid']);
             $stmt->execute();
             $result = $stmt->get_result();
             return ($result->num_rows > 0) ? true : false;
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             die($e->getMessage());
         }
     }
-    
 
 
-    public function updateEventAttendee (array $data) {
+    public function updateEventAttendee(array $data)
+    {
 
         try {
             $stmt = $this->db->prepare("UPDATE event_users SET event_status = ? WHERE event_uuid = ? AND user_uuid = ?");
-            
+
             $stmt->bind_param("sss",
                 $data['status'],
                 $data['event_uuid'],
                 $data['user_uuid'],
             );
-            
+
             $result = $stmt->execute();
-            
+
             if ($result) {
                 return ['success' => true, 'message' => 'Event attached successfully.'];
             } else {
                 return ['success' => false, 'message' => 'Database error: ' . implode(' ', $stmt->errorInfo())];
-            }  
-        }
-        catch (Exception $e) {
+            }
+        } catch (Exception $e) {
             die($e->getMessage());
         }
     }

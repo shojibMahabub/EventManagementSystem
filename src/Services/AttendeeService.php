@@ -1,8 +1,8 @@
 <?php
+
 namespace src\Services;
 
 use src\Repositories\AttendeeRepository;
-use src\Utils\Uuid;
 
 class AttendeeService
 {
@@ -14,14 +14,15 @@ class AttendeeService
     }
 
 
-    public function attachEventToAttendee (array $data) {
+    public function attachEventToAttendee(array $data)
+    {
 
         $result = $this->attendeeRepository->checkForExistingEvent($data);
 
         if ($result) {
             return $this->attendeeRepository->updateEventAttendee($data);
         }
-        
+
         return $this->attendeeRepository->attachEventAttendee($data);
     }
 }

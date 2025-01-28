@@ -37,7 +37,7 @@ class AuthService
 
         $uuid = new Uuid();
         $hashedPassword = password_hash($data['password'], PASSWORD_BCRYPT);
-        
+
         $result = $this->userRepository->createUser([
             'uuid' => $uuid->generate(),
             'name' => $data['name'],
@@ -53,4 +53,5 @@ class AuthService
         return ['success' => false, 'message' => 'Registration failed.'];
     }
 }
+
 ?>

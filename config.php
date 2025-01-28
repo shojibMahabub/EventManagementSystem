@@ -1,4 +1,5 @@
 <?php
+
 class Config
 {
     private static $instance = null;
@@ -53,8 +54,7 @@ class Config
 
         try {
             return new mysqli($host, $username, $password, $dbname);
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             echo "Database : " . $e->getMessage();
         }
     }
