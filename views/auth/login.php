@@ -11,6 +11,7 @@
             <label for="password" class="form-label">Password</label>
             <input type="password" class="form-control" id="password" name="password" required>
         </div>
+        <p>Do not have an account ? <a href="#">Register Now</a></p>
         <button type="submit" class="btn btn-light w-100">Login</button>
     </form>
 </div>

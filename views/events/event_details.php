@@ -16,11 +16,11 @@
         <div class="card-footer text-body-secondary">
 
             <?php if (!isset($_SESSION['user'])): ?>
-                <a href="/register" class="btn btn-primary">Join the event</a>
+                <a href="/login" class="btn btn-primary">Join the event</a>
             <?php elseif (isset($_SESSION['user']) && $_SESSION['user']->role == 'attendee'): ?>
-                <button type="button" class="btn btn-primary status-btn" data-status="going">Going</button>
-                <button type="button" class="btn btn-danger status-btn" data-status="not_going">Not Going</button>
-                <button type="button" class="btn btn-warning status-btn" data-status="interested">Interested</button>
+                <button type="button" class="btn btn-primary status-btn" data-status="GOING">Going</button>
+                <button type="button" class="btn btn-danger status-btn" data-status="NOTGOING">Not Going</button>
+                <button type="button" class="btn btn-warning status-btn" data-status="INTERESTED">Interested</button>
             <?php endif; ?>
         </div>
     <?php else: ?>
@@ -50,12 +50,12 @@
                     buttons.removeClass('btn-primary btn-danger btn-warning');
                     buttons.addClass('btn-secondary');
                     
-                    if (status === 'going') {
-                        buttons.filter('[data-status="going"]').removeClass('btn-secondary').addClass('btn-primary');
-                    } else if (status === 'not_going') {
-                        buttons.filter('[data-status="not_going"]').removeClass('btn-secondary').addClass('btn-danger');
-                    } else if (status === 'interested') {
-                        buttons.filter('[data-status="interested"]').removeClass('btn-secondary').addClass('btn-warning');
+                    if (status === 'GOING') {
+                        buttons.filter('[data-status="GOING"]').removeClass('btn-secondary').addClass('btn-primary');
+                    } else if (status === 'NOTGOING') {
+                        buttons.filter('[data-status="NOTGOING"]').removeClass('btn-secondary').addClass('btn-danger');
+                    } else if (status === 'INTERESTED') {
+                        buttons.filter('[data-status="INTERESTED"]').removeClass('btn-secondary').addClass('btn-warning');
                     }
                 },
                 error: function(xhr) {

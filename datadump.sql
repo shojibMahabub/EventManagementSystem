@@ -60,7 +60,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 -- Dumping data for table event_management.users: ~2 rows (approximately)
 DELETE FROM `users`;
-INSERT INTO `users` (`uuid`, `name`, `password`, `email`, `role`, `event_uuid`, `going`) VALUES
+INSERT INTO `users` (`uuid`, `name`, `password`, `email`, `role`, `event_uuid`, event_status) VALUES
 	('523f6434-cc03-4593-ba30-12fb8c22b120', 'attendee', '$2y$10$9RjKbZ5bt/VDEsFnSaDCxeJ0fVkQkivC4RC1mr62QOsDwzhP85oTO', 'attendee@gmail.com', 'attendee', NULL, NULL),
 	('d7aafdf1-16b1-474e-8021-5e4ae3371926', 'mahabub', '$2y$10$GWEx2Hr0srWJ6sLiEGVpguY4dhVyG4MCof0.cX3f/aMk7E5mooz1a', 'admin@gmail.com', 'attendee', NULL, NULL);
 
