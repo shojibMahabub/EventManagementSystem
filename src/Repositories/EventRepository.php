@@ -38,7 +38,7 @@ class EventRepository
         }
         
         catch (Exception $e) {
-            echo $e->getMessage();
+            die($e->getMessage());
         }
     }
 
@@ -51,7 +51,8 @@ class EventRepository
             $updated_at = date('Y-m-d\TH:i');
 
             $stmt = $this->db->prepare("
-                INSERT INTO events (name, description, capacity, uuid, created_at, updated_at, location, event_date_time) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+                INSERT INTO events (name, description, capacity, uuid, created_at, updated_at, location, event_date_time) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?)
             ");
             
             $stmt->bind_param("ssisssss", 
@@ -74,7 +75,7 @@ class EventRepository
             }        
         }
         catch (Exception $e) {
-            echo $e->getMessage();
+            die($e->getMessage());
         }
         
     }
@@ -89,7 +90,7 @@ class EventRepository
             
             return $stmt->execute();
         } catch (Exception $e) {
-            echo $e->getMessage();
+            die($e->getMessage());
         }
     }
     
@@ -120,7 +121,7 @@ class EventRepository
             return null;
         }
         catch (Exception $e) {
-            echo $e->getMessage();
+            die($e->getMessage());
         }
     }
 
@@ -132,7 +133,7 @@ class EventRepository
             $stmt->execute();
         }
         catch (Exception $e) {
-            echo $e->getMessage();
+            die($e->getMessage());
         }
     }
     

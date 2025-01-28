@@ -42,26 +42,29 @@ class AttendeeRepository
             }  
         }
         catch (Exception $e) {
-            echo "Exception : " . $e->getMessage();
+            die($e->getMessage());
         }
     }
 
     public function checkForExistingEvent ($data) {
-        $stmt = $this->db->prepare("SELECT * FROM event_users WHERE event_uuid = ? AND user_uuid = ?");
-        $stmt->bind_param("ss", $data['event_uuid'], $data['user_uuid']);
-        $result = $stmt->execute();
-        
-        return ($result) ? 'True' : 'False';
+        try{
+            $stmt = $this->db->prepare("SELECT * FROM event_users WHERE event_uuid = ? AND user_uuid = ?");
+            $stmt->bind_param("ss", $data['event_uuid'], $data['user_uuid']);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            return ($result->num_rows > 0) ? true : false;
+        }
+        catch (Exception $e) {
+            die($e->getMessage());
+        }
     }
+    
 
 
     public function updateEventAttendee (array $data) {
 
         try {
-            $stmt = $this->db->prepare("
-                UPDATE event_users SET event_status = ? WHERE event_uuid = ? AND user_uuid = ?
-                VALUES (?, ?, ?)
-            ");
+            $stmt = $this->db->prepare("UPDATE event_users SET event_status = ? WHERE event_uuid = ? AND user_uuid = ?");
             
             $stmt->bind_param("sss",
                 $data['status'],
@@ -78,8 +81,7 @@ class AttendeeRepository
             }  
         }
         catch (Exception $e) {
-            echo "Exception : " . $e->getMessage();
+            die($e->getMessage());
         }
     }
 }
-?>
