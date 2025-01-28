@@ -1,6 +1,6 @@
 <?php
 include __DIR__ . '/../templates/header.php';
-if ($_SERVER['PATH_INFO'] === '/events/edit') {
+if ($_SERVER['PATH_INFO'] === '/events/edit' || $_SERVER['REDIRECT_URL'] === '/events/edit') {
     $pageTitle = 'Edit Event';
     $action = '/events/update';
     $button = 'Edit Event';
