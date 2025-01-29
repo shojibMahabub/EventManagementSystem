@@ -10,22 +10,13 @@ class Config
         $this->loadEnv();
     }
 
-    public static function getInstance(): Config
-    {
-        if (self::$instance === null) {
-            self::$instance = new self();
-        }
-
-        return self::$instance;
-    }
-
     private function loadEnv()
     {
         $lines = file(__DIR__ . '/.env', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 
         foreach ($lines as $line) {
             if (strpos(trim($line), '#') === 0) {
-                continue; // Skip comments
+                continue;
             }
 
             list($key, $value) = explode('=', $line, 2);
@@ -33,16 +24,20 @@ class Config
             $value = trim($value);
 
             if (preg_match('/^".*"$/', $value) || preg_match('/^\'.*\'$/', $value)) {
-                $value = substr($value, 1, -1); // Remove quotes
+                $value = substr($value, 1, -1);
             }
 
             $this->env[$key] = $value;
         }
     }
 
-    public function get(string $key, $default = null)
+    public static function getInstance(): Config
     {
-        return $this->env[$key] ?? $default;
+        if (self::$instance === null) {
+            self::$instance = new self();
+        }
+
+        return self::$instance;
     }
 
     public function getDatabaseConnection(): mysqli
@@ -58,9 +53,13 @@ class Config
             echo "Database : " . $e->getMessage();
         }
     }
+
+    public function get(string $key, $default = null)
+    {
+        return $this->env[$key] ?? $default;
+    }
 }
 
-// Autoload Classes
 spl_autoload_register(function ($class) {
     $path = __DIR__ . '/' . str_replace('\\', '/', $class) . '.php';
     if (file_exists($path)) {

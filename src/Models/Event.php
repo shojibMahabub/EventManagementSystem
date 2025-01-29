@@ -33,5 +33,3 @@ class Event
         $this->event_users[] = $eventUser;
     }
 }
-
-?>

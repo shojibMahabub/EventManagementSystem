@@ -16,5 +16,3 @@ class Attendee
         $this->capacity = $capacity;
     }
 }
-
-?>

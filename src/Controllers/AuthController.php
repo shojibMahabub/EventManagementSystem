@@ -13,24 +13,6 @@ class AuthController
         $this->authService = new AuthService($db);
     }
 
-    public function login()
-    {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $email = $_POST['email'] ?? '';
-            $password = $_POST['password'] ?? '';
-            $result = $this->authService->login($email, $password);
-
-            if ($result['success']) {
-                header('Location: /events');
-                exit;
-            } else {
-                echo $result['message'];
-            }
-        } else {
-            include __DIR__ . '/../../views/auth/login.php';
-        }
-    }
-
     public function logout()
     {
         session_destroy();
@@ -70,5 +52,23 @@ class AuthController
 
         header('Content-Type: application/json');
         echo json_encode($result);
+    }
+
+    public function login()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $email = $_POST['email'] ?? '';
+            $password = $_POST['password'] ?? '';
+            $result = $this->authService->login($email, $password);
+
+            if ($result['success']) {
+                header('Location: /events');
+                exit;
+            } else {
+                echo $result['message'];
+            }
+        } else {
+            include __DIR__ . '/../../views/auth/login.php';
+        }
     }
 }

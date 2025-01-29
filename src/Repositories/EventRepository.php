@@ -91,11 +91,11 @@ class EventRepository
                     event_date_time = ? 
                 WHERE uuid = ?
             ");
-            $stmt->bind_param("ssisss", 
-                $data['name'], 
-                $data['description'], 
-                $data['capacity'], 
-                $data['location'], 
+            $stmt->bind_param("ssisss",
+                $data['name'],
+                $data['description'],
+                $data['capacity'],
+                $data['location'],
                 $data['datetime'],
                 $data['uuid'],
             );
@@ -107,7 +107,7 @@ class EventRepository
             }
 
             return $res;
-            
+
         } catch (Exception $e) {
             die($e->getMessage());
         }

@@ -58,7 +58,7 @@ if (session_status() === PHP_SESSION_NONE) {
                             $session_user_uuid = $_SESSION['user']->uuid ?? null;
                             $user_event = null;
 
-                            // Find matching event user for the logged-in user
+                            
                             foreach ($event->event_users as $event_user) {
                                 if ($event_user->user_uuid === $session_user_uuid) {
                                     $user_event = $event_user;
@@ -66,60 +66,61 @@ if (session_status() === PHP_SESSION_NONE) {
                                 }
                             }
                             ?>
-                            
+
                             <?php $button_label = $user_event->event_status ?? 'Join'; ?>
                             <?php if ($user_event): ?>
                                 <div class="btn-group" role="group">
-                                    <button id="btnGroupDrop_<?= $user_event->uuid; ?>" type="button" class="btn btn-light dropdown-toggle"
+                                    <button id="btnGroupDrop_<?= $user_event->uuid; ?>" type="button"
+                                            class="btn btn-light dropdown-toggle"
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <?= ucfirst(strtolower($button_label === 'NOTGOING' ? 'Not Going' : $button_label)); ?>
                                     </button>
                                     <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="#" 
-                                            data-eventuuid="<?= htmlspecialchars($event->uuid); ?>" 
-                                            data-useruuid="<?= htmlspecialchars($session_user_uuid); ?>" 
-                                            data-status="GOING">
+                                        <a class="dropdown-item" href="#"
+                                           data-eventuuid="<?= htmlspecialchars($event->uuid); ?>"
+                                           data-useruuid="<?= htmlspecialchars($session_user_uuid); ?>"
+                                           data-status="GOING">
                                             Going
                                         </a>
-                                        <a class="dropdown-item" href="#" 
-                                            data-eventuuid="<?= htmlspecialchars($event->uuid); ?>" 
-                                            data-useruuid="<?= htmlspecialchars($session_user_uuid); ?>" 
-                                            data-status="NOTGOING">
+                                        <a class="dropdown-item" href="#"
+                                           data-eventuuid="<?= htmlspecialchars($event->uuid); ?>"
+                                           data-useruuid="<?= htmlspecialchars($session_user_uuid); ?>"
+                                           data-status="NOTGOING">
                                             Not going
-                                        </a>                                        
-                                        <a class="dropdown-item" href="#" 
-                                            data-eventuuid="<?= htmlspecialchars($event->uuid); ?>" 
-                                            data-useruuid="<?= htmlspecialchars($session_user_uuid); ?>" 
-                                            data-status="INTERESTED">
+                                        </a>
+                                        <a class="dropdown-item" href="#"
+                                           data-eventuuid="<?= htmlspecialchars($event->uuid); ?>"
+                                           data-useruuid="<?= htmlspecialchars($session_user_uuid); ?>"
+                                           data-status="INTERESTED">
                                             Interested
-                                        </a>                                    
+                                        </a>
                                     </div>
                                 </div>
                             <?php else: ?>
                                 <div class="btn-group" role="group">
                                     <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown"
                                             aria-haspopup="true" aria-expanded="false">
-                                            <?= ucfirst(strtolower($button_label === 'NOTGOING' ? 'Not Going' : $button_label)); ?>
+                                        <?= ucfirst(strtolower($button_label === 'NOTGOING' ? 'Not Going' : $button_label)); ?>
                                     </button>
                                     <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="#" 
-                                            data-eventuuid="<?= htmlspecialchars($event->uuid); ?>" 
-                                            data-useruuid="<?= htmlspecialchars($session_user_uuid); ?>" 
-                                            data-status="GOING">
+                                        <a class="dropdown-item" href="#"
+                                           data-eventuuid="<?= htmlspecialchars($event->uuid); ?>"
+                                           data-useruuid="<?= htmlspecialchars($session_user_uuid); ?>"
+                                           data-status="GOING">
                                             Going
                                         </a>
-                                        <a class="dropdown-item" href="#" 
-                                            data-eventuuid="<?= htmlspecialchars($event->uuid); ?>" 
-                                            data-useruuid="<?= htmlspecialchars($session_user_uuid); ?>" 
-                                            data-status="NOTGOING">
+                                        <a class="dropdown-item" href="#"
+                                           data-eventuuid="<?= htmlspecialchars($event->uuid); ?>"
+                                           data-useruuid="<?= htmlspecialchars($session_user_uuid); ?>"
+                                           data-status="NOTGOING">
                                             Not going
-                                        </a>                                        
-                                        <a class="dropdown-item" href="#" 
-                                            data-eventuuid="<?= htmlspecialchars($event->uuid); ?>" 
-                                            data-useruuid="<?= htmlspecialchars($session_user_uuid); ?>" 
-                                            data-status="INTERESTED">
+                                        </a>
+                                        <a class="dropdown-item" href="#"
+                                           data-eventuuid="<?= htmlspecialchars($event->uuid); ?>"
+                                           data-useruuid="<?= htmlspecialchars($session_user_uuid); ?>"
+                                           data-status="INTERESTED">
                                             Interested
-                                        </a>   
+                                        </a>
                                     </div>
                                 </div>
                             <?php endif; ?>
@@ -131,43 +132,43 @@ if (session_status() === PHP_SESSION_NONE) {
         </tbody>
     </table>
 
-<?php include __DIR__ . '/../templates/footer.php'; ?>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-$(document).ready(function() {
-    $('.dropdown-item').on('click', function() {
-        const status = $(this).data('status');
-        const eventUuid = $(this).attr('data-eventuuid'); // Fix case sensitivity
-        const userUuid = $(this).attr('data-useruuid'); // Fix case sensitivity
-        const button = $(this).closest('.btn-group').find('button');
+    <?php include __DIR__ . '/../templates/footer.php'; ?>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.dropdown-item').on('click', function() {
+                const status = $(this).data('status');
+                const eventUuid = $(this).attr('data-eventuuid');
+                const userUuid = $(this).attr('data-useruuid');
+                const button = $(this).closest('.btn-group').find('button');
 
-        if (!eventUuid || !userUuid) {
-            console.error('Missing event or user UUID');
-            return;
-        }
+                if (!eventUuid || !userUuid) {
+                    console.error('Missing event or user UUID');
+                    return;
+                }
 
-        console.log('Event UUID:', eventUuid, 'User UUID:', userUuid, 'Status:', status);
+                console.log('Event UUID:', eventUuid, 'User UUID:', userUuid, 'Status:', status);
 
-        $.ajax({
-            url: '/update_attendee_event',
-            type: 'POST',
-            data: {
-                event_uuid: eventUuid,
-                user_uuid: userUuid,
-                status: status
-            },
-            success: function(response) {
-                button.text(ucfirst(status.toLowerCase()));
-            },
-            error: function(xhr) {
-                alert('Error updating status. Please try again.');
+                $.ajax({
+                    url: '/update_attendee_event',
+                    type: 'POST',
+                    data: {
+                        event_uuid: eventUuid,
+                        user_uuid: userUuid,
+                        status: status
+                    },
+                    success: function(response) {
+                        button.text(ucfirst(status.toLowerCase()));
+                    },
+                    error: function(xhr) {
+                        alert('Error updating status. Please try again.');
+                    }
+                });
+            });
+
+            function ucfirst(string) {
+                return string.charAt(0).toUpperCase() + string.slice(1);
             }
         });
-    });
 
-    function ucfirst(string) {
-        return string.charAt(0).toUpperCase() + string.slice(1);
-    }
-});
-
-</script>
+    </script>

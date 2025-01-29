@@ -53,5 +53,3 @@ class AuthService
         return ['success' => false, 'message' => 'Registration failed.'];
     }
 }
-
-?>
