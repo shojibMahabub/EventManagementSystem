@@ -53,7 +53,7 @@ if (session_status() === PHP_SESSION_NONE) {
                         <?php if (isset($_SESSION['user']) && $_SESSION['user']->role !== 'attendee'): ?>
                             <a href="/events/edit?uuid=<?= $event->uuid; ?>" class="btn btn-light">Edit</a>
                             <a href="/events/delete?uuid=<?= $event->uuid; ?>" class="btn btn-light">Delete</a>
-                        <?php elseif ($_SESSION['user']->role === 'attendee'): ?>
+                        <?php elseif (isset($_SESSION['user']) && $_SESSION['user']->role === 'attendee'): ?>
                             <?php
                             $session_user_uuid = $_SESSION['user']->uuid ?? null;
                             $user_event = null;
