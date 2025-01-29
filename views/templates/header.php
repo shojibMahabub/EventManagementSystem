@@ -43,7 +43,9 @@
                     </ul>
                 </div>
                 <div>
+                <?php if (isset($_SESSION['user'])): ?>
                     <p>Welcome <strong><?=$_SESSION['user']->name?></strong></p>
+                <?php endif; ?>
                 </div>
             </div>
         </nav>
