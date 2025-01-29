@@ -16,35 +16,61 @@ class AttendeeRepository
 
     public function attachEventAttendee(array $data)
     {
-
         try {
-
-            $uuid = new Uuid();
-            $uuid = $uuid->generate();
-
-            $stmt = $this->db->prepare("
+            $uuid = (new Uuid())->generate();
+    
+            $this->db->begin_transaction();
+    
+            $checkStmt = $this->db->prepare("SELECT spot_left FROM events WHERE uuid = ? FOR UPDATE");
+            $checkStmt->bind_param("s", $data['event_uuid']);
+            $checkStmt->execute();
+            $result = $checkStmt->get_result();
+            $event = $result->fetch_assoc();
+    
+            if (!$event || $event['spot_left'] <= 0) {
+                $this->db->rollback();
+                return ['success' => false, 'message' => 'No available spots left.'];
+            }
+    
+            $updateStmt = $this->db->prepare("
+                UPDATE events SET spot_left = spot_left - 1 WHERE uuid = ? AND spot_left > 0
+            ");
+            $updateStmt->bind_param("s", $data['event_uuid']);
+            $updateStmt->execute();
+    
+            if ($updateStmt->affected_rows === 0) {
+                $this->db->rollback();
+                return ['success' => false, 'message' => 'Failed to update spot count.'];
+            }
+    
+            $insertStmt = $this->db->prepare("
                 INSERT INTO event_users (uuid, event_uuid, user_uuid, event_status)
                 VALUES (?, ?, ?, ?)
             ");
 
-            $stmt->bind_param("ssss",
+            $insertStmt->bind_param("ssss",
                 $uuid,
                 $data['event_uuid'],
                 $data['user_uuid'],
                 $data['status']
             );
-
-            $result = $stmt->execute();
-
-            if ($result) {
-                return ['success' => true, 'message' => 'Event attached successfully.'];
-            } else {
-                return ['success' => false, 'message' => 'Database error: ' . implode(' ', $stmt->errorInfo())];
+            $insertResult = $insertStmt->execute();
+    
+            if (!$insertResult) {
+                $this->db->rollback();
+                return ['success' => false, 'message' => 'Failed to insert event user.'];
             }
+    
+            $this->db->commit();
+    
+            return ['success' => true, 'message' => 'Event attached successfully.'];
+            
         } catch (Exception $e) {
-            die($e->getMessage());
+            $this->db->rollback();
+            return ['success' => false, 'message' => 'Exception: ' . $e->getMessage()];
         }
     }
+    
 
     public function checkForExistingEvent($data)
     {
