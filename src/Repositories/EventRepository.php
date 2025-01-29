@@ -190,8 +190,8 @@ class EventRepository
 
                 $eventUser = new EventUser(
                     $row['event_user_uuid'],
-                    $row['uuid'],
                     $row['user_uuid'],
+                    $row['uuid'],
                     $row['event_status']
                 );
 

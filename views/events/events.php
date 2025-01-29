@@ -8,7 +8,7 @@ if (session_status() === PHP_SESSION_NONE) {
 <div class="container mt-5">
     <h2 class="text-center">Events</h2>
 
-    <?php if (isset($_SESSION['user']) && $_SESSION['user']->role != 'attendee'): ?>
+    <?php if (isset($_SESSION['user']) && $_SESSION['user']->role !== 'attendee'): ?>
         <a href="/events/add" class="btn btn-light mb-3">Add Event</a>
     <?php endif; ?>
 
@@ -17,9 +17,9 @@ if (session_status() === PHP_SESSION_NONE) {
         <tr>
             <th>Name</th>
             <th>Location</th>
-            <th>Date Time</th>
+            <th>Date & Time</th>
             <th>Capacity</th>
-            <th>Spot left</th>
+            <th>Spots Left</th>
             <th>Actions</th>
         </tr>
         </thead>
@@ -47,32 +47,52 @@ if (session_status() === PHP_SESSION_NONE) {
                 <td><?= $event->capacity; ?></td>
                 <td><?= $event->spot_left; ?></td>
                 <td>
-                    <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
-                        <a href="/events/details?uuid=<?= $event->uuid; ?>" class="btn btn-light" role="button"
-                           aria-pressed="true">Details</a>
+                    <div class="btn-group" role="group" aria-label="Event actions">
+                        <a href="/events/details?uuid=<?= $event->uuid; ?>" class="btn btn-light">Details</a>
 
-                        <?php if (isset($_SESSION['user']) && $_SESSION['user']->role != 'attendee'): ?>
-                            <a href="/events/edit?uuid=<?= $event->uuid; ?>" class="btn btn-light" role="button"
-                               aria-pressed="true">Edit</a>
-                            <a href="/events/delete?uuid=<?= $event->uuid; ?>" class="btn btn-light" role="button"
-                               aria-pressed="true">Delete</a>
-                        <?php elseif (isset($_SESSION['user']) && $_SESSION['user']->role == 'attendee'): ?>
-                            <div class="btn-group" role="group">
-                                <?php
-                                    $button_label = (isset($event->event_users[0]->event_status)) ?  $event->event_users[0]->event_status : 'Join';
-                                    $button_label = ($button_label === 'NOTGOING') ? 'Not Going' : $button_label;
-                                ?>
-                                <button id="btnGroupDrop1" type="button" class="btn btn-light dropdown-toggle"
-                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <?php echo ucfirst(strtolower($button_label)) ?>
-                                </button>
+                        <?php if (isset($_SESSION['user']) && $_SESSION['user']->role !== 'attendee'): ?>
+                            <a href="/events/edit?uuid=<?= $event->uuid; ?>" class="btn btn-light">Edit</a>
+                            <a href="/events/delete?uuid=<?= $event->uuid; ?>" class="btn btn-light">Delete</a>
+                        <?php elseif (isset($_SESSION['user']) && $_SESSION['user']->role === 'attendee'): ?>
+                            <?php
+                            $session_user_uuid = $_SESSION['user']->uuid ?? null;
+                            $user_event = null;
 
-                                <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                    <a class="dropdown-item" href="#">Going</a>
-                                    <a class="dropdown-item" href="#">Not going</a>
-                                    <a class="dropdown-item" href="#">Interested</a>
+                            // Find matching event user for the logged-in user
+                            foreach ($event->event_users as $event_user) {
+                                if ($event_user->user_uuid === $session_user_uuid) {
+                                    $user_event = $event_user;
+                                    break;
+                                }
+                            }
+                            ?>
+
+                            <?php if ($user_event): ?>
+                                <?php $button_label = $user_event->event_status ?? 'Join'; ?>
+                                <div class="btn-group" role="group">
+                                    <button id="btnGroupDrop_<?= $user_event->uuid; ?>" type="button" class="btn btn-light dropdown-toggle"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <?= ucfirst(strtolower($button_label === 'NOTGOING' ? 'Not Going' : $button_label)); ?>
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="btnGroupDrop_<?= $user_event->uuid; ?>">
+                                        <a class="dropdown-item" href="?event_uuid=<?= $event->uuid; ?>&status=GOING&user_uuid=<?= $session_user_uuid; ?>">Going</a>
+                                        <a class="dropdown-item" href="?event_uuid=<?= $event->uuid; ?>&status=NOTGOING&user_uuid=<?= $session_user_uuid; ?>">Not Going</a>
+                                        <a class="dropdown-item" href="?event_uuid=<?= $event->uuid; ?>&status=INTERESTED&user_uuid=<?= $session_user_uuid; ?>">Interested</a>
+                                    </div>
                                 </div>
-                            </div>
+                            <?php else: ?>
+                                <div class="btn-group" role="group">
+                                    <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown"
+                                            aria-haspopup="true" aria-expanded="false">
+                                        Join
+                                    </button>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="?event_uuid=<?= $event->uuid; ?>&status=GOING&user_uuid=<?= $session_user_uuid; ?>">Going</a>
+                                        <a class="dropdown-item" href="?event_uuid=<?= $event->uuid; ?>&status=NOTGOING&user_uuid=<?= $session_user_uuid; ?>">Not Going</a>
+                                        <a class="dropdown-item" href="?event_uuid=<?= $event->uuid; ?>&status=INTERESTED&user_uuid=<?= $session_user_uuid; ?>">Interested</a>
+                                    </div>
+                                </div>
+                            <?php endif; ?>
                         <?php endif; ?>
                     </div>
                 </td>
@@ -80,6 +100,5 @@ if (session_status() === PHP_SESSION_NONE) {
         <?php endforeach; ?>
         </tbody>
     </table>
-</div>
 
 <?php include __DIR__ . '/../templates/footer.php'; ?>
