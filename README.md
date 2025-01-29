@@ -24,11 +24,11 @@
 ---
 
 ### **Epic 3: Attendee Registration**
-- **Task_013:** Design database schema for attendees (fields: name, email, event_id, etc.).
-- **Task_014:** Implement attendee registration form linked to specific events.
-- **Task_015:** Add server-side validation for registration forms.
-- **Task_016:** Prevent registrations beyond event capacity.
-- **Task_017:** Develop a responsive UI for attendee registration.
+- **Task_013:** Design database schema for attendees (fields: name, email, event_id, etc.). ✅
+- **Task_014:** Implement attendee registration form linked to specific events. ✅
+- **Task_015:** Add server-side validation for registration forms. ✅
+- **Task_016:** Prevent registrations beyond event capacity. 
+- **Task_017:** Develop a responsive UI for attendee registration. ✅
 
 ---
 
