@@ -51,7 +51,7 @@ class EventController
     public function details()
     {
         $eventUuid = $_GET['uuid'] ?? 0;
-        $event = $this->eventService->getEventByUuid($eventUuid);
+        $event = $this->eventService->getSingleEventWithUsers($eventUuid);
         include __DIR__ . '/../../views/events/event_details.php';
     }
 

@@ -154,6 +154,60 @@ class EventRepository
         }
     }
 
+    public function getSingleEventWithUsers($eventUuid) {
+        try {
+            $result = $this->db->query("
+                SELECT 
+                    e.*, 
+                    eu.uuid AS event_user_uuid, 
+                    eu.user_uuid, 
+                    eu.event_status 
+                FROM events e 
+                LEFT JOIN event_users eu ON e.uuid = eu.event_uuid 
+                WHERE e.uuid = '$eventUuid';
+            ");
+        
+            if (!$result) {
+                die("Query failed: " . $this->db->error);
+            }
+    
+            $event = null;
+            $eventUsers = [];
+    
+            while ($row = $result->fetch_assoc()) {
+                if (!$event) {
+                    $event = new Event(
+                        $row['uuid'],
+                        $row['name'],
+                        $row['description'],
+                        $row['capacity'],
+                        $row['event_date_time'],
+                        $row['location'],
+                        $row['created_at'],
+                        $row['updated_at'],
+                        $row['spot_left']
+                    );
+                }
+    
+                $eventUser = new EventUser(
+                    $row['event_user_uuid'],
+                    $row['user_uuid'],
+                    $row['uuid'],
+                    $row['event_status']
+                );
+    
+                $eventUsers[] = $eventUser;
+            }
+    
+            foreach ($eventUsers as $eventUser) {
+                $event->addEventUser($eventUser);
+            }
+    
+            return $event;
+        } catch (Exception $e) {
+            die("Error: " . $e->getMessage());
+        }
+    }
 
     public function getAllEventsWithUsers()
     {

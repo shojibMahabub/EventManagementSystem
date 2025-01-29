@@ -42,6 +42,9 @@
                         </li>
                     </ul>
                 </div>
+                <div>
+                    <p>Welcome <strong><?=$_SESSION['user']->name?></strong></p>
+                </div>
             </div>
         </nav>
 

@@ -19,9 +19,27 @@
             <?php if (!isset($_SESSION['user'])): ?>
                 <a href="/login" class="btn btn-primary">Join the event</a>
             <?php elseif (isset($_SESSION['user']) && $_SESSION['user']->role == 'attendee'): ?>
-                <button type="button" class="btn btn-primary status-btn" data-status="GOING">Going</button>
-                <button type="button" class="btn btn-danger status-btn" data-status="NOTGOING">Not Going</button>
-                <button type="button" class="btn btn-warning status-btn" data-status="INTERESTED">Interested</button>
+                <?php 
+                $session_user_uuid = $_SESSION['user']->uuid ?? null;
+                $userStatus = 'Join';
+                $user_event = null;
+
+                if (!empty($event->event_users)) {
+                    foreach ($event->event_users as $event_user) {
+                        if ($event_user->user_uuid === $session_user_uuid) {
+                            $user_event = $event_user;
+                            break;
+                        }
+                    }
+                }
+
+                if ($user_event) {
+                    $userStatus = $user_event->event_status;
+                }
+                ?>
+                <button type="button" class="btn <?= $userStatus === 'GOING' ? 'btn-primary' : 'btn-secondary' ?> status-btn" data-status="GOING">Going</button>
+                <button type="button" class="btn <?= $userStatus === 'NOTGOING' ? 'btn-danger' : 'btn-secondary' ?> status-btn" data-status="NOTGOING">Not Going</button>
+                <button type="button" class="btn <?= $userStatus === 'INTERESTED' ? 'btn-warning' : 'btn-secondary' ?> status-btn" data-status="INTERESTED">Interested</button>
             <?php endif; ?>
         </div>
     <?php else: ?>

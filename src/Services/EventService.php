@@ -82,8 +82,7 @@ class EventService
 
     public function getEventByUuid(string $uuid)
     {
-        $event = $this->eventRepository->findByUuid($uuid);
-        return $event;
+        return $this->eventRepository->findByUuid($uuid);
     }
 
     public function deleteEventByUuid(string $uuid)
@@ -94,9 +93,11 @@ class EventService
 
     public function getAllEventsWithUsers()
     {
-
         return $this->eventRepository->getAllEventsWithUsers();
+    }
 
+    public function getSingleEventWithUsers ($eventUuid) {
+        return $this->eventRepository->getSingleEventWithUsers($eventUuid);
     }
 }
 
