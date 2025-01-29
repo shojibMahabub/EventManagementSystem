@@ -17,9 +17,9 @@ class AttendeeService
     public function attachEventToAttendee(array $data)
     {
 
-        $result = $this->attendeeRepository->checkForExistingEvent($data);
+        $exitstingEvent = $this->attendeeRepository->checkForExistingEvent($data);
 
-        if ($result) {
+        if ($exitstingEvent) {
             return $this->attendeeRepository->updateEventAttendee($data);
         }
 
