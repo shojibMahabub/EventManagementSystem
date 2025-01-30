@@ -33,9 +33,9 @@
 ---
 
 ### **Epic 4: Event Dashboard**
-- **Task_018:** Build a paginated list view of events.
-- **Task_019:** Add sorting functionality for event fields (name, date, etc.).
-- **Task_020:** Implement filtering options for events (e.g., by date, capacity).
+- **Task_018:** Build a paginated list view of events. ✅
+- **Task_019:** Add sorting functionality for event fields (name, date, etc.). ✅
+- **Task_020:** Implement filtering options for events (e.g., by date, capacity). ✅
 - **Task_021:** Develop a responsive UI for the event dashboard.
 
 ---
