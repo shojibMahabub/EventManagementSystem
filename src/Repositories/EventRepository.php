@@ -209,26 +209,78 @@ class EventRepository
         }
     }
 
-    public function getAllEventsWithUsers()
+    public function getAllEventsWithUsers($page = 1, $limit = 10, $search = '', $filter = [])
     {
+        $offset = ($page - 1) * $limit;
 
-        $events = [];
+        $query = "
+            SELECT 
+                e.*, 
+                eu.uuid AS event_user_uuid, 
+                eu.user_uuid, 
+                eu.event_status 
+            FROM events e 
+            LEFT JOIN event_users eu ON e.uuid = eu.event_uuid
+        ";
+    
+        $conditions = [];
+        $params = [];
+    
+        if (!empty($search)) {
+            $conditions[] = "(e.name LIKE ? OR e.description LIKE ?)";
+            $params[] = "%$search%";
+            $params[] = "%$search%";
+        }
+    
+        if (!empty($filter['location'])) {
+            $conditions[] = "e.location = ?";
+            $params[] = $filter['location'];
+        }
+    
+        if (!empty($filter['start_date']) && !empty($filter['end_date'])) {
+            $conditions[] = "e.event_date_time BETWEEN ? AND ?";
+            $params[] = $filter['start_date'];
+            $params[] = $filter['end_date'];
+        }
+
+        if (!empty($filter['start_date']) && !empty($filter['end_date'])) {
+            $conditions[] = "e.event_date_time BETWEEN ? AND ?";
+            $params[] = $filter['start_date'];
+            $params[] = $filter['end_date'];
+        }
+
+        if (!empty($filter['capacity'])) {
+            $conditions[] = "e.capacity >= ?";
+            $params[] = $filter['capacity'];
+        }
+
+        if (!empty($filter['spot_left'])) {
+            $conditions[] = "e.spot_left >= ?";
+            $params[] = $filter['spot_left'];
+        }
+    
+        if (!empty($conditions)) {
+            $query .= " WHERE " . implode(" AND ", $conditions);
+        }
+    
+        $query .= " LIMIT $limit OFFSET $offset;";
+    
         try {
-            $result = $this->db->query("
-                SELECT 
-                    e.*, 
-                    eu.uuid AS event_user_uuid, 
-                    eu.user_uuid, 
-                    eu.event_status 
-                FROM events e LEFT JOIN event_users eu ON e.uuid = eu.event_uuid;
-            ");
-
-            if (!$result) {
-                die("Query failed: " . $this->db->error);
+            $stmt = $this->db->prepare($query);
+            if ($stmt === false) {
+                die("Prepare failed: " . $this->db->error);
             }
-
+    
+            if (!empty($params)) {
+                $types = str_repeat('s', count($params));
+                $stmt->bind_param($types, ...$params);
+            }
+    
+            $stmt->execute();
+            $result = $stmt->get_result();
+    
             $events = [];
-
+    
             while ($row = $result->fetch_assoc()) {
                 $event = new Event(
                     $row['uuid'],
@@ -241,28 +293,85 @@ class EventRepository
                     $row['updated_at'],
                     $row['spot_left']
                 );
-
+    
                 $eventUser = new EventUser(
                     $row['event_user_uuid'],
                     $row['user_uuid'],
                     $row['uuid'],
                     $row['event_status']
                 );
-
+    
                 $event->addEventUser($eventUser);
-
+    
                 if (!isset($events[$event->uuid])) {
                     $events[$event->uuid] = $event;
                 } else {
                     $events[$event->uuid]->addEventUser($eventUser);
                 }
             }
-
+    
             return array_values($events);
         } catch (Exception $e) {
             die("Error: " . $e->getMessage());
         }
+    }
+    
+    public function getTotalEventsCount($search = '', $filter = [])
+    {
+        $query = "SELECT COUNT(*) AS total FROM events e";
+    
+        $conditions = [];
+        $params = [];
+    
+        if (!empty($search)) {
+            $conditions[] = "(e.name LIKE ? OR e.description LIKE ?)";
+            $params[] = "%$search%";
+            $params[] = "%$search%";
+        }
+    
+        if (!empty($filter['location'])) {
+            $conditions[] = "e.location = ?";
+            $params[] = $filter['location'];
+        }
+    
+        if (!empty($filter['start_date']) && !empty($filter['end_date'])) {
+            $conditions[] = "e.event_date_time BETWEEN ? AND ?";
+            $params[] = $filter['start_date'];
+            $params[] = $filter['end_date'];
+        }
+    
+        if (!empty($filter['capacity'])) {
+            $conditions[] = "e.capacity >= ?";
+            $params[] = $filter['capacity'];
+        }
 
+        if (!empty($filter['spot_left'])) {
+            $conditions[] = "e.spot_left >= ?";
+            $params[] = $filter['spot_left'];
+        }
+
+        if (!empty($conditions)) {
+            $query .= " WHERE " . implode(" AND ", $conditions);
+        }
+    
+        try {
+            $stmt = $this->db->prepare($query);
+            if ($stmt === false) {
+                die("Prepare failed: " . $this->db->error);
+            }
+    
+            if (!empty($params)) {
+                $types = str_repeat('s', count($params));
+                $stmt->bind_param($types, ...$params);
+            }
+    
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $row = $result->fetch_assoc();
+            return $row['total'];
+        } catch (Exception $e) {
+            die("Error: " . $e->getMessage());
+        }
     }
 
 }

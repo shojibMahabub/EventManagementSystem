@@ -20,7 +20,21 @@ class EventController
 
     public function list()
     {
-        $events = $this->eventService->getAllEventsWithUsers();
+        $page = $_GET['page'] ?? 1;
+        $limit = $_GET['limit'] ?? 10;
+        $search = $_GET['search'] ?? '';
+        $filter = $_GET['filter'] ?? [];
+    
+        if (!empty($_GET['date_range'])) {
+            $dateRange = explode(' to ', $_GET['date_range']);
+            $filter['start_date'] = $dateRange[0] ?? '';
+            $filter['end_date'] = $dateRange[1] ?? $dateRange[0];
+        }
+    
+        $events = $this->eventService->getAllEventsWithUsers($page, $limit, $search, $filter);
+        $totalEvents = $this->eventService->getTotalEventsCount($search, $filter);
+        $totalPages = ceil($totalEvents / $limit);
+    
         include __DIR__ . '/../../views/events/events.php';
     }
 
