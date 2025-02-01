@@ -1,9 +1,9 @@
 # EventManagementSystem
 
 ## HOST - http://47.129.224.127
-### Admin - admin@gmailcom | password630
-### Attendee - attendee@gmail.com | password630
-### Attendee - attendee2@gmail.com | password630
+##### Admin - admin@gmailcom | password630
+##### Attendee - attendee@gmail.com | password630
+##### Attendee - attendee2@gmail.com | password630
 
 ### **Epic 1: User Authentication**
 - ✅ **Task_001:** Set up database schema for users (fields: username, email, password, etc.).
@@ -57,7 +57,7 @@
 ---
 
 ### **Epic 7: Hosting and Documentation**
-- **Task_028:** Deploy the project on a hosting platform (Heroku, Vercel, etc.). ✅
+- ✅ **Task_028:** Deploy the project on a hosting platform (Heroku, Vercel, etc.).
 - **Task_029:** Prepare a README file with:
   - Project overview
   ✅ - Features 
@@ -69,8 +69,8 @@
 ---
 
 ### **Epic 8: Bonus Features**
-- **Task_031:** Implement search functionality for events and attendees. ✅
-- **Task_032:** Use AJAX for a smooth attendee registration experience. ✅
+- ✅**Task_031:** Implement search functionality for events and attendees.
+- ✅**Task_032:** Use AJAX for a smooth attendee registration experience.
 - **Task_033:** Develop a JSON API endpoint to fetch event details.
 
 ---
