@@ -91,9 +91,14 @@ class EventService
     }
 
 
-    public function getAllEventsWithUsers()
+    public function getAllEventsWithUsers($page=1, $limit=10, $search='', $filter=[])
     {
-        return $this->eventRepository->getAllEventsWithUsers();
+        return $this->eventRepository->getAllEventsWithUsers($page, $limit, $search, $filter);
+    }
+
+    public function getTotalEventsCount($search='', $filter=[])
+    {
+        return $this->eventRepository->getTotalEventsCount($search, $filter);
     }
 
     public function getSingleEventWithUsers ($eventUuid) {

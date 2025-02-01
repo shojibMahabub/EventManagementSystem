@@ -16,32 +16,6 @@ class AttendeeController
         $this->eventService = new EventService($db);
     }
 
-    public function register()
-    {
-
-        $events = $this->eventService->getAllEvents();
-
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $data = [
-                'name' => $_POST['name'] ?? '',
-                'email' => $_POST['email'] ?? '',
-                'password' => $_POST['password'] ?? ''
-            ];
-
-            $result = $this->attendeeService->register($data);
-
-            if ($result['success']) {
-                header('Location: /login');
-                exit;
-            } else {
-                echo $result['message'];
-            }
-        } else {
-            include __DIR__ . '/../../views/attendee/register.php';
-        }
-
-    }
-
     public function attachEvent()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -58,4 +32,38 @@ class AttendeeController
         }
 
     }
+
+    public function exportAttendeeData()
+    {
+        if ($_SESSION['user']->role === 'admin') {
+            $eventUuid = $_GET['uuid'] ?? '';
+            if (empty($eventUuid)) {
+                echo "Something went wrong !";
+            }
+            
+            $event = $this->eventService->getSingleEventWithUsers($eventUuid);
+            $exported_data = $this->attendeeService->getAttendeeInformationByEvent($event->event_users);
+
+            $filename = $event->name."_attendees_" . date('Y-m-d_H-i-s') . ".csv";
+
+            header('Content-Type: text/csv; charset=utf-8');
+            header('Content-Disposition: attachment; filename="' . $filename . '"');
+
+            $output = fopen('php://output', 'w');
+
+            fputcsv($output, ['Name', 'Email']);
+
+            foreach ($exported_data as $attendee) {
+                fputcsv($output, [$attendee['name'], $attendee['email']]);
+            }
+
+            fclose($output);
+            exit;
+        } else {
+            echo "Method not supported";
+        }
+    }
+
+
+
 }

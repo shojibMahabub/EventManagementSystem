@@ -1,12 +1,12 @@
 <?php
 include __DIR__ . '/../templates/header.php';
-if ($_SERVER['PATH_INFO'] === '/events/edit' || array_key_exists('REDIRECT_URL', $_SERVER) && $_SERVER['REDIRECT_URL'] === '/events/edit') {
+if ($_SERVER['PATH_INFO'] === '/event/edit' || array_key_exists('REDIRECT_URL', $_SERVER) && $_SERVER['REDIRECT_URL'] === '/event/edit') {
     $pageTitle = 'Edit Event';
-    $action = '/events/update';
+    $action = '/event/update';
     $button = 'Edit Event';
 } else {
     $pageTitle = 'Add New Event';
-    $action = '/events/add';
+    $action = '/event/add';
     $button = 'Add Event';
 }
 ?>

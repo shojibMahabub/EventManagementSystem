@@ -3,7 +3,7 @@
 namespace src\Controllers;
 
 use src\Services\EventService;
-
+use src\Utils\View;
 class EventController
 {
     private $eventService;
@@ -15,16 +15,30 @@ class EventController
 
     public function index()
     {
-        include __DIR__ . '/../../views/events/home.php';
+        include View::generate('events/home');
     }
 
-    public function list()
+    public function listEvents()
     {
-        $events = $this->eventService->getAllEventsWithUsers();
-        include __DIR__ . '/../../views/events/events.php';
+        $page = $_GET['page'] ?? 1;
+        $limit = $_GET['limit'] ?? 5;
+        $search = $_GET['search'] ?? '';
+        $filter = $_GET['filter'] ?? [];
+    
+        if (!empty($_GET['date_range'])) {
+            $dateRange = explode(' to ', $_GET['date_range']);
+            $filter['start_date'] = $dateRange[0] ?? '';
+            $filter['end_date'] = $dateRange[1] ?? $dateRange[0];
+        }
+    
+        $events = $this->eventService->getAllEventsWithUsers($page, $limit, $search, $filter);
+        $totalEvents = $this->eventService->getTotalEventsCount($search, $filter);
+        $totalPages = ceil($totalEvents / $limit);
+
+        include View::generate('events/event_list');
     }
 
-    public function add()
+    public function addEvent()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $data = [
@@ -44,26 +58,26 @@ class EventController
                 echo $result['message'];
             }
         } else {
-            include __DIR__ . '/../../views/events/add_event.php';
+            include View::generate('events/add_event');
         }
     }
 
-    public function details()
+    public function eventDetails()
     {
         $eventUuid = $_GET['uuid'] ?? 0;
         $event = $this->eventService->getSingleEventWithUsers($eventUuid);
-        include __DIR__ . '/../../views/events/event_details.php';
+        include View::generate('events/event_details');
     }
 
 
-    public function edit()
+    public function editEvent()
     {
         $eventUuid = $_GET['uuid'] ?? 0;
         $event = $this->eventService->getEventByUuid($eventUuid);
-        include __DIR__ . '/../../views/events/add_event.php';
+        include View::generate('events/add_event');
     }
 
-    public function update()
+    public function updateEvent()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $data = [
@@ -88,7 +102,7 @@ class EventController
         }
     }
 
-    public function delete()
+    public function deleteEvent()
     {
         $eventUuid = $_GET['uuid'] ?? 0;
         $this->eventService->deleteEventByUuid($eventUuid);
