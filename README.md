@@ -65,7 +65,7 @@
 - **Task_029:** Prepare a README file with:
   - Project overview
   ✅ - Features 
-  - Installation instructions
+  ✅ - Installation instructions
   ✅ - Login credentials for testing 
   ✅ - Live demo link 
 - ✅ **Task_030:** Upload the complete project to GitHub.
@@ -75,6 +75,6 @@
 ### **Epic 8: Bonus Features**
 - ✅**Task_031:** Implement search functionality for events and attendees.
 - ✅**Task_032:** Use AJAX for a smooth attendee registration experience.
-- **Task_033:** Develop a JSON API endpoint to fetch event details.
+- ✅**Task_033:** Develop a JSON API endpoint to fetch event details.
 
 ---
