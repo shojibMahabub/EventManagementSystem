@@ -31,24 +31,23 @@ class AttendeeService
 
     public function getAttendeeInformationByEvent($attendee_list) {
         
-        $data = [];
-        
+        $user_uuids = [];
+        $exported_data = [];
+
         foreach ($attendee_list as $attendee) {
-            array_push($data, $attendee->user_uuid);
+            array_push($user_uuids, $attendee->user_uuid);
         }
-        $attendee_list = $this->userRepository->findByUuid($data);
 
-
+        $attendee_list = $this->userRepository->findByUuid($user_uuids);
 
         foreach ($attendee_list as $attendee) {
-            array_push($data, [
+            array_push($exported_data, [
                 'name'  => $attendee->name,
                 'email' => $attendee->email
             ]);
         }
         
-
-        return ['name' => $attendee_list->name, 'email' => $attendee_list->email];
+        return $exported_data;
 
 
     }

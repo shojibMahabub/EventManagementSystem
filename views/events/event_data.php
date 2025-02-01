@@ -85,7 +85,7 @@
                                 <?php if (isset($_SESSION['user']) && $_SESSION['user']->role !== 'attendee'): ?>
                                 <a href="/event/edit?uuid=<?= $event->uuid ?>" class="btn btn-light">Edit</a>
                                 <a href="/event/delete?uuid=<?= $event->uuid ?>" class="btn btn-light">Delete</a>
-                                <a href="/events/export?uuid=<?= $event->uuid ?>" class="btn btn-light">Export</a>
+                                <a href="/event/export_attendee_data?uuid=<?= $event->uuid ?>" class="btn btn-light">Export</a>
                                 <?php elseif (isset($_SESSION['user']) && $_SESSION['user']->role === 'attendee'): ?>
                                 <?php
                                 $session_user_uuid = $_SESSION['user']->uuid ?? null;

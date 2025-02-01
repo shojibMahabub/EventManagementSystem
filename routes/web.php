@@ -14,5 +14,5 @@ return [
     '/event/delete' => ['EventController', 'deleteEvent'],
     
     '/update_attendee_event' => ['AttendeeController', 'attachEvent'],
-    '/export_attendee_data' => ['AttendeeController', 'exportAttendeeData'],
+    '/event/export_attendee_data' => ['AttendeeController', 'exportAttendeeData'],
 ];

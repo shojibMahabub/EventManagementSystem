@@ -36,23 +36,34 @@ class AttendeeController
     public function exportAttendeeData()
     {
         if ($_SESSION['user']->role === 'admin') {
-            $eventUuid = '1C356248-0D3D-ABB2-6C96-7484DA16DCB1';
+            $eventUuid = $_GET['uuid'] ?? '';
+            if (empty($eventUuid)) {
+                echo "Something went wrong !";
+            }
+            
             $event = $this->eventService->getSingleEventWithUsers($eventUuid);
-            $attendeeData = $this->attendeeService->getAttendeeInformationByEvent($event->event_users);
-            die(var_dump($attendeeData));
-            $data = [
-                'name' => '',
-                'email' => '',
-                'status' => '',
-            ];
+            $exported_data = $this->attendeeService->getAttendeeInformationByEvent($event->event_users);
 
+            $filename = $event->name."_attendees_" . date('Y-m-d_H-i-s') . ".csv";
 
-            die(var_dump($event));
+            header('Content-Type: text/csv; charset=utf-8');
+            header('Content-Disposition: attachment; filename="' . $filename . '"');
+
+            $output = fopen('php://output', 'w');
+
+            fputcsv($output, ['Name', 'Email']);
+
+            foreach ($exported_data as $attendee) {
+                fputcsv($output, [$attendee['name'], $attendee['email']]);
+            }
+
+            fclose($output);
+            exit;
         } else {
             echo "Method not supported";
         }
-
     }
+
 
 
 }
