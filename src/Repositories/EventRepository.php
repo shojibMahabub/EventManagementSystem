@@ -51,11 +51,11 @@ class EventRepository
             $updated_at = date('Y-m-d\TH:i');
 
             $stmt = $this->db->prepare("
-                INSERT INTO events (name, description, capacity, uuid, created_at, updated_at, location, event_date_time) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+                INSERT INTO events (name, description, capacity, uuid, created_at, updated_at, location, event_date_time, spot_left) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
             ");
 
-            $stmt->bind_param("ssisssss",
+            $stmt->bind_param("ssisssssi",
                 $data['name'],
                 $data['description'],
                 $data['capacity'],
@@ -63,7 +63,8 @@ class EventRepository
                 $created_at,
                 $updated_at,
                 $data['location'],
-                $data['datetime']
+                $data['datetime'],
+                $data['capacity']
             );
 
             $result = $stmt->execute();

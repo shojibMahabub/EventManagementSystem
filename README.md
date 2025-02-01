@@ -5,6 +5,10 @@
 ##### Attendee - attendee@gmail.com | password630
 ##### Attendee - attendee2@gmail.com | password630
 
+## Installation
+##### git clone
+##### docker-compose up -d --build
+
 ### **Epic 1: User Authentication**
 - ✅ **Task_001:** Set up database schema for users (fields: username, email, password, etc.).
 - ✅ **Task_002:** Implement user registration with secure password hashing.

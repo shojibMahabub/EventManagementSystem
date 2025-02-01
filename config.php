@@ -42,10 +42,10 @@ class Config
 
     public function getDatabaseConnection(): mysqli
     {
-        $host = $this->get('DB_HOST', '');
-        $dbname = $this->get('DB_NAME', '');
-        $username = $this->get('DB_USER', '');
-        $password = $this->get('DB_PASS', '');
+        $host = $this->get('DB_HOST', 'db');
+        $dbname = $this->get('DB_NAME', 'eventdb');
+        $username = $this->get('DB_USER', 'root');
+        $password = $this->get('DB_PASS', 'root');
 
         try {
             return new mysqli($host, $username, $password, $dbname);

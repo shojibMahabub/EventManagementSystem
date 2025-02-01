@@ -39,7 +39,8 @@ class AuthController
                 echo $result['message'];
             }
         } else {
-            include View::generate('auth/register');
+            // include View::generate('auth/register');
+            include __DIR__ . "/../../views/auth/register.php";
         }
     }
 
@@ -68,7 +69,9 @@ class AuthController
                 echo $result['message'];
             }
         } else {
-            include View::generate('auth/login');;
+            // include View::generate('auth/login');;
+            include __DIR__ . "/../../views/auth/login.php";
+
         }
     }
 }

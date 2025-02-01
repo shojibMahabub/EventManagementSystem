@@ -30,10 +30,10 @@ usort($events, function ($a, $b) use ($sort, $order) {
     <div><h2>Events</h2></div>
     <div class="row">
 
-        <?php include __DIR__ . './event_filter.php'; ?>
+        <?php include __DIR__ . '/event_filter.php'; ?>
 
         <div class="col-md-9 col-lg-10">
-            <?php include __DIR__ . './event_data.php'; ?>
+            <?php include __DIR__ . '/event_data.php'; ?>
             <?php include __DIR__ . '/../templates/footer.php'; ?>
 
             <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

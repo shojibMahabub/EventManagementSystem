@@ -15,7 +15,10 @@ class EventController
 
     public function index()
     {
-        include View::generate('events/home');
+        // include View::generate('events/home');
+        include __DIR__ . "/../../views/events/home.php";
+
+        
     }
 
     public function listEvents()
@@ -34,8 +37,8 @@ class EventController
         $events = $this->eventService->getAllEventsWithUsers($page, $limit, $search, $filter);
         $totalEvents = $this->eventService->getTotalEventsCount($search, $filter);
         $totalPages = ceil($totalEvents / $limit);
-
-        include View::generate('events/event_list');
+        include __DIR__ . "/../../views/events/event_list.php";
+        // include View::generate('events/event_list');
     }
 
     public function addEvent()
@@ -58,7 +61,9 @@ class EventController
                 echo $result['message'];
             }
         } else {
-            include View::generate('events/add_event');
+            // include View::generate('events/add_event');
+            include __DIR__ . "/../../views/events/add_event.php";
+
         }
     }
 
@@ -66,7 +71,9 @@ class EventController
     {
         $eventUuid = $_GET['uuid'] ?? 0;
         $event = $this->eventService->getSingleEventWithUsers($eventUuid);
-        include View::generate('events/event_details');
+        // include View::generate('events/event_details');
+        include __DIR__ . "/../../views/events/event_details.php";
+        
     }
 
 
@@ -74,7 +81,8 @@ class EventController
     {
         $eventUuid = $_GET['uuid'] ?? 0;
         $event = $this->eventService->getEventByUuid($eventUuid);
-        include View::generate('events/add_event');
+        // include View::generate('events/add_event');
+        include __DIR__ . "/../../views/events/add_event.php";
     }
 
     public function updateEvent()
