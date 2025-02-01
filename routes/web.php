@@ -1,16 +1,18 @@
 <?php
 return [
-    '/' => ['EventController', 'index'],
-    '/home' => ['EventController', 'index'],
+    '/' => ['EventController', 'listEvents'],
+    
     '/login' => ['AuthController', 'login'],
     '/logout' => ['AuthController', 'logout'],
     '/register' => ['AuthController', 'register'],
-    '/events' => ['EventController', 'list'],
-    '/events/add' => ['EventController', 'add'],
-    '/events/details' => ['EventController', 'details'],
-    '/events/edit' => ['EventController', 'edit'],
-    '/events/update' => ['EventController', 'update'],
-    '/events/delete' => ['EventController', 'delete'],
-    '/attendee/register' => ['AttendeeController', 'register'],
+    
+    '/events' => ['EventController', 'listEvents'],
+    '/event/add' => ['EventController', 'addEvent'],
+    '/event/details' => ['EventController', 'eventDetails'],
+    '/event/edit' => ['EventController', 'editEvent'],
+    '/event/update' => ['EventController', 'updateEvent'],
+    '/event/delete' => ['EventController', 'deleteEvent'],
+    
     '/update_attendee_event' => ['AttendeeController', 'attachEvent'],
+    '/export_attendee_data' => ['AttendeeController', 'exportAttendeeData'],
 ];

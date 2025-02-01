@@ -1,4 +1,5 @@
 <?php
+
 include __DIR__ . '/../templates/header.php';
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
@@ -26,35 +27,15 @@ usort($events, function ($a, $b) use ($sort, $order) {
 ?>
 
 <div class="container mt-5">
+    <div><h2>Events</h2></div>
     <div class="row">
 
         <?php include __DIR__ . './event_filter.php'; ?>
 
         <div class="col-md-9 col-lg-10">
-            <h2 class="text-center">Events</h2>
-
-            <div class="d-flex justify-content-between mb-3">
-                <nav aria-label="Page navigation"  class="ms-auto">
-                    <ul class="pagination justify-content-end">
-                        <li class="page-item <?= $page <= 1 ? 'disabled' : '' ?>">
-                            <a class="page-link" href="?page=<?= $page - 1 ?>&limit=<?= $limit ?>">Previous</a>
-                        </li>
-                        <?php for ($i = 1; $i <= $totalPages; $i++): ?>
-                        <li class="page-item <?= $page == $i ? 'active' : '' ?>">
-                            <a class="page-link" href="?page=<?= $i ?>&limit=<?= $limit ?>"><?= $i ?></a>
-                        </li>
-                        <?php endfor; ?>
-
-                        <li class="page-item <?= $page >= $totalPages ? 'disabled' : '' ?>">
-                            <a class="page-link" href="?page=<?= $page + 1 ?>&limit=<?= $limit ?>">Next</a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-
             <?php include __DIR__ . './event_data.php'; ?>
-
             <?php include __DIR__ . '/../templates/footer.php'; ?>
+
             <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
             <script>
                 $(document).ready(function() {

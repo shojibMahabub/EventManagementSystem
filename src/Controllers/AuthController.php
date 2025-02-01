@@ -3,7 +3,7 @@
 namespace src\Controllers;
 
 use src\Services\AuthService;
-
+use src\Utils\View;
 class AuthController
 {
     private $authService;
@@ -39,7 +39,7 @@ class AuthController
                 echo $result['message'];
             }
         } else {
-            include __DIR__ . '/../../views/auth/register.php';
+            include View::generate('auth/register');
         }
     }
 
@@ -68,7 +68,7 @@ class AuthController
                 echo $result['message'];
             }
         } else {
-            include __DIR__ . '/../../views/auth/login.php';
+            include View::generate('auth/login');;
         }
     }
 }

@@ -49,7 +49,7 @@
                     <button type="submit" class="btn btn-light">Apply Filters</button>
                     <a href="/events" class="btn btn-outline-secondary">Reset Filters</a>
                     <?php if (isset($_SESSION['user']) && $_SESSION['user']->role !== 'attendee'): ?>
-                    <a href="/events/add" class="btn btn-primary mb-3">Add Event</a>
+                    <a href="/event/add" class="btn btn-primary mb-3">Add Event</a>
                     <?php endif; ?>
                 </div>
             </form>

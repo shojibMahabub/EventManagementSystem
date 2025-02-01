@@ -3,15 +3,17 @@
 namespace src\Repositories;
 
 use Exception;
+use src\Repositories\UserRepository;
 use src\Utils\Uuid;
 
-class AttendeeRepository
+class AttendeeRepository extends UserRepository
 {
     private $db;
 
     public function __construct($db)
     {
         $this->db = $db;
+        parent::__construct($this->db);
     }
 
     public function attachEventAttendee(array $data)

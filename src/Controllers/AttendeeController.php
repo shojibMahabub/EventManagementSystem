@@ -16,32 +16,6 @@ class AttendeeController
         $this->eventService = new EventService($db);
     }
 
-    public function register()
-    {
-
-        $events = $this->eventService->getAllEvents();
-
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $data = [
-                'name' => $_POST['name'] ?? '',
-                'email' => $_POST['email'] ?? '',
-                'password' => $_POST['password'] ?? ''
-            ];
-
-            $result = $this->attendeeService->register($data);
-
-            if ($result['success']) {
-                header('Location: /login');
-                exit;
-            } else {
-                echo $result['message'];
-            }
-        } else {
-            include __DIR__ . '/../../views/attendee/register.php';
-        }
-
-    }
-
     public function attachEvent()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -58,4 +32,27 @@ class AttendeeController
         }
 
     }
+
+    public function exportAttendeeData()
+    {
+        if ($_SESSION['user']->role === 'admin') {
+            $eventUuid = '1C356248-0D3D-ABB2-6C96-7484DA16DCB1';
+            $event = $this->eventService->getSingleEventWithUsers($eventUuid);
+            $attendeeData = $this->attendeeService->getAttendeeInformationByEvent($event->event_users);
+            die(var_dump($attendeeData));
+            $data = [
+                'name' => '',
+                'email' => '',
+                'status' => '',
+            ];
+
+
+            die(var_dump($event));
+        } else {
+            echo "Method not supported";
+        }
+
+    }
+
+
 }

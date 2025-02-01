@@ -80,11 +80,11 @@
                         <td><?= $event->spot_left ?></td>
                         <td>
                             <div class="btn-group" role="group" aria-label="Event actions">
-                                <a href="/events/details?uuid=<?= $event->uuid ?>" class="btn btn-light">Details</a>
+                                <a href="/event/details?uuid=<?= $event->uuid ?>" class="btn btn-light">Details</a>
 
                                 <?php if (isset($_SESSION['user']) && $_SESSION['user']->role !== 'attendee'): ?>
-                                <a href="/events/edit?uuid=<?= $event->uuid ?>" class="btn btn-light">Edit</a>
-                                <a href="/events/delete?uuid=<?= $event->uuid ?>" class="btn btn-light">Delete</a>
+                                <a href="/event/edit?uuid=<?= $event->uuid ?>" class="btn btn-light">Edit</a>
+                                <a href="/event/delete?uuid=<?= $event->uuid ?>" class="btn btn-light">Delete</a>
                                 <a href="/events/export?uuid=<?= $event->uuid ?>" class="btn btn-light">Export</a>
                                 <?php elseif (isset($_SESSION['user']) && $_SESSION['user']->role === 'attendee'): ?>
                                 <?php
@@ -162,4 +162,23 @@
                     </tr>
                     <?php endforeach; ?>
                 </tbody>
-            </table>
+</table>
+
+<div class="d-flex justify-content-between mb-3">
+                <nav aria-label="Page navigation">
+                    <ul class="pagination justify-content-end">
+                        <li class="page-item <?= $page <= 1 ? 'disabled' : '' ?>">
+                            <a class="page-link" href="?page=<?= $page - 1 ?>&limit=<?= $limit ?>">Previous</a>
+                        </li>
+                        <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+                        <li class="page-item <?= $page == $i ? 'active' : '' ?>">
+                            <a class="page-link" href="?page=<?= $i ?>&limit=<?= $limit ?>"><?= $i ?></a>
+                        </li>
+                        <?php endfor; ?>
+
+                        <li class="page-item <?= $page >= $totalPages ? 'disabled' : '' ?>">
+                            <a class="page-link" href="?page=<?= $page + 1 ?>&limit=<?= $limit ?>">Next</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
