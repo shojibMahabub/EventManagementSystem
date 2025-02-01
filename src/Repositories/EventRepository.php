@@ -214,14 +214,13 @@ class EventRepository
         $offset = ($page - 1) * $limit;
 
         $query = "
-            SELECT e.uuid AS event_uuid, 
+            SELECT 
                 e.*, 
-                GROUP_CONCAT(eu.uuid) AS event_user_uuids, 
-                GROUP_CONCAT(eu.user_uuid) AS user_uuids, 
-                GROUP_CONCAT(eu.event_status) AS event_statuses
-            FROM events e
+                eu.uuid AS event_user_uuid, 
+                eu.user_uuid, 
+                eu.event_status 
+            FROM events e 
             LEFT JOIN event_users eu ON e.uuid = eu.event_uuid
-            GROUP BY e.uuid
         ";
     
         $conditions = [];
@@ -296,10 +295,10 @@ class EventRepository
                 );
     
                 $eventUser = new EventUser(
-                    $row['event_user_uuids'],
-                    $row['user_uuids'],
+                    $row['event_user_uuid'],
+                    $row['user_uuid'],
                     $row['uuid'],
-                    $row['event_statuses']
+                    $row['event_status']
                 );
     
                 $event->addEventUser($eventUser);
